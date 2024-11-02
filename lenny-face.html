@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Pandav Da</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+    <header>
+        <!-- Logo and Site Title -->
+        <div class="logo-title">
+            <img src="logo.png" alt="MyLogo" class="logo-img">
+            <span class="site-title">MyWebsite</span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+    </header>
+<body>
+  
+<div style="max-width: 700px; margin: auto; padding: 20px; background: #ffffff; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);">
+    <h1 style="text-align: center; font-family: Arial, sans-serif; color: #333;">Fun Lenny Face Generator</h1>
+    <label for="category" style="display: block; margin-bottom: 10px;">Select a Category:</label>
+    <select id="category" style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ddd;">
+        <option value="">--Select a Category--</option>
+        <option value="happy">Happy</option>
+        <option value="sad">Sad</option>
+        <option value="angry">Angry</option>
+        <option value="surprised">Surprised</option>
+        <option value="confused">Confused</option>
+        <option value="shrug">Shrug</option>
+        <option value="cool">Cool</option>
+        <option value="love">Love</option>
+        <option value="wacky">Wacky</option>
+        <option value="thinking">Thinking</option>
+    </select>
+    <button id="generateBtn" style="width: 100%; padding: 10px; margin-bottom: 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Generate Lenny Faces</button>
+    <h2 style="font-family: Arial, sans-serif; color: #333;">Generated Faces:</h2>
+    <div id="faceGrid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;"></div>
+</div>
+
+<script>
+// Extended list of Lenny faces organized by category
+const lennyFaces = {
+    happy: ["( ͡° ͜ʖ ͡°)", "(ᵔᴥᵔ)", "(≧◡≦)", "(づ｡◕‿‿◕｡)づ", "(✿◠‿◠)", "٩(◕‿◕｡)۶", "(^_^)", "(✧ω✧)", "(´ω`)", "٩(｡•́‿•̀｡)۶", "(♥‿♥)", "(o‿o)", "(｡♥‿♥｡)", "(｡◕‿◕｡)", "(≧ω≦)", "(╹◡╹)"],
+    sad: ["(︶︹︺)", "(╥_╥)", "(ಥ_ಥ)", "(T_T)", "(｡•́︿•̀｡)", "(っ- ‸ – ς)", "(つω`｡)", "(´༎ຶ ︿༎ຶ`)", "(つд｀)", "(◕︵◕)", "(｡•́︿•̀｡)", "(︶︹︶)", "(ಥ﹏ಥ)", "(T⌓T)", "(⊙︿⊙)", "(°︹°)"],
+    angry: ["( ಠ益ಠ)", "(ノಠ益ಠ)ノ彡┻━┻", "(¬_¬)", "(ʘ言ʘ╬)", "(ง'̀-'́)ง", "(ᕗಠ益ಠ)ᕗ", "(>ლ)", "(ಠ⌣ಠ)", "(¬‿¬)", "(>_<)", "( ಠ_ಠ)", "(눈_눈)", "(ಥ﹏ಥ)", "(≧o≦)", "(´•ω•̥`)", "(｀Д´)"],
+    surprised: ["(ʘ‿ʘ)", "(°ロ°)", "(⊙_☉)", "(⊙o⊙)", "(⊙▃⊙)", "(☉_☉)", "(゜ロ゜)", "(⊙_⊙)", "( •o•)", "(ﾟДﾟ;)", "(⊙o⊙)", "(°◊°)", "(°O°)", "(¬_¬)", "(∩︵∩)", "(•_•)"],
+    confused: ["(⊙_☉)", "(⊙﹏⊙)", "( °▽°)", "(ಠ.ಠ)", "(⊙︿⊙)", "(⊙_⊙)", "( °ロ°)", "(；⌣̀_⌣́)", "(´ヘ｀;)", "(´•ω•`)","(¬‿¬)", "(⊙▃⊙)", "( °ロ°)", "(｡•́︿•̀｡)", "(⊙.☉)", "(⊙.☉)"],
+    shrug: ["¯\\_(ツ)_/¯", "( ͡° ͜ʖ ͡°)", "( ͡o‿O͡)", "( ͡° ͜ʖ ͡°)¯\\_(ツ)_/¯", "( ͡ʘ ͜ʖ ͡ʘ)", "( ͡° ͜ʖ ͡°)", "(o_O)", "(° ͡°) ¯\\_(ツ)_/¯", "( ͡o‿‿O͡)", "( ͡° ͜ʖ ͡°)", "( ͡ʘ ͜ʖ ͡ʘ)", "( ͡o_O ͡)", "(⊙_☉)", "(⊙o⊙)"],
+    cool: ["(⌐■_■)", "( ͡° ͜ʖ ͡°)", "(▀̿Ĺ̯▀̿ ̿)", "(¬‿¬)", "(•_•) ( •_•)>⌐■-■", "( ͡~ ͜ʖ ͡°)", "(⌐▀͡ ̯ʖ▀)", "(⌐▨_▨)", "(⌐■_■)"],
+    love: ["(｡♥‿♥｡)", "(づ￣ ³￣)づ", "(✿ ♥‿♥)", "(♥ω♥ ) ~♪", "(⌒▽⌒)♡", "(｡♥‿♥｡)", "(｡♥‿♥｡)", "(◕‿◕✿)", "(♥‿♥)", "(♥ω♥ )"],
+    wacky: ["(͡~ ͜ʖ ͡°)", "(o_O)", "(╯°□°）╯︵ ┻━┻", "(⊙＿⊙’)", "(゜▽゜;)", "(¬‿¬)", "(O.o)", "( ͡~ ͜ʖ ͡°)", "(づ｡◕‿‿◕｡)づ", "(¬‿¬)", "(•̪̀●́)"],
+    thinking: ["(－‸ლ)", "(＠_＠;)", "(ノ﹏ヽ)", "(￢_￢)", "(¬_¬)", "( ಠ_ಠ)", "(●__●)", "(＠_＠)", "(；一_一)", "(＠_＠)", "(¬‿¬)", "(눈_눈)", "(⊙＿⊙’)"],
+};
+
+// Generate Lenny Faces based on selected category
+document.getElementById('generateBtn').addEventListener('click', () => {
+    const category = document.getElementById('category').value;
+    const faceGrid = document.getElementById('faceGrid');
+    faceGrid.innerHTML = ''; // Clear previous faces
+
+    if (category && lennyFaces[category]) {
+        lennyFaces[category].forEach(face => {
+            const faceDiv = document.createElement('div');
+            faceDiv.style = `
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+                border-radius: 10px;
+                font-size: 1.5em;
+                font-weight: bold;
+                color: #333;
+                cursor: pointer;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                transition: background-color 0.2s, transform 0.2s;
+            `;
+            faceDiv.textContent = face;
+
+            // Click to copy and animate
+            faceDiv.onclick = () => {
+                navigator.clipboard.writeText(face).then(() => {
+                    faceDiv.style.backgroundColor = '#d4edda';
+                    faceDiv.style.color = '#155724';
+                    faceDiv.style.transform = 'scale(0.95)';
+                    faceDiv.textContent = `${face} Copied!`;
+                    setTimeout(() => {
+                        faceDiv.style.background = 'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)';
+                        faceDiv.style.color = '#333';
+                        faceDiv.style.transform = 'scale(1)';
+                        faceDiv.textContent = face;
+                    }, 1000);
+                });
+            };
+
+            faceGrid.appendChild(faceDiv);
+        });
+    } else {
+        alert('Please select a category!');
+    }
+});
+</script>
+<br>
+<div class="article">
+<h1>Lenny Face Generator Tool: Easy way to create and copy Cool and Trending Lenny Face</h1>
+<p>Nowadays you must have seen many types of funny and weird Lenny Face on social media. People use these funny and cute face emoticons to express their mood. If you also want to surprise your friends and want to put funny Text on Face in your chat, then our Lenny Face Generator Tool is perfect for you. Here we will tell you about this tool in detail and explain how you can use this Lenny Face Copy and Paste tool.</p>
+<p><br></p>
+<h2>What is Lenny Face? (What is Lenny Face Meaning?)</h2>
+<p>Lenny Face is a special type of Text on Face emoticon that creates a face by combining text and symbols. This emoticon first became famous on platforms like Reddit in 2012, and since then it has been popular on the Internet. Lenny Face simply means a funny emoticon that helps you express your emotions like an emoji. People use it to laugh, joke, look upset, be sad, and express many other emotions.</p>
+<p><br></p>
+<h2>What is Lenny Face Generator Tool?</h2>
+<p>Our Lenny Face Generator Tool is a tool that gives you many different types of Lenny Face Copy and Paste options. In this tool, you will also find different categories like Lenny Face Shrug, Lenny Face Sad, and Happy Lenny Faces. You just select the category and then you will see a variety of Lenny faces in two columns. By clicking on each face, it will be copied to your clipboard and you can paste it directly in your chat or social media post.</p>
+<p><br></p>
+<h2>How to Copy and Paste Lenny Face?</h2>
+<p>It is very easy to copy Lenny Faces in this tool. All you have to do is select your favorite Lenny face and click on it. As soon as you click on a face, it will be automatically copied. After this you can paste it in any text field.</p>
+<p><br></p>
+<ol>
+    <li>Open the tool and choose the category you want, such as Lenny Face Shrug, Lenny Face Sad, or any other mood.</li>
+    <li>Click on any of the faces shown. Your face will be copied immediately.</li>
+    <li>Paste it wherever you want and share your feelings with your friends.</li>
+</ol>
+<p><br></p>
+<h2>What does Lenny Face Shrug mean?</h2>
+<p>Lenny Face Shrug is a face that shows the emotion of shrugging, such as &quot;I don&apos;t know&quot; or &quot;I don&apos;t care&quot;. This face is also known as &macr;\(ツ)/&macr;. People use this face when they can&apos;t answer something or want to react with a light-hearted joke.</p>
+<p>In our tool, in the Lenny Face Shrug category you will find different types of shrug faces that you can easily copy.</p>
+<p><br></p>
+<h2>Lenny Face Sad - How to show sad emotions?</h2>
+<p>If you want to express sadness or grief, Lenny Face Sad is perfect for it. These faces are used to express sadness and sorrowful emotions. The tool has many Sad Lenny Faces under this category such as (︶︹︺), (ಥ_ಥ), and (T_T) that you can easily choose from. These faces can add depth and emotional touch to your message.</p>
+<p><br></p>
+<h2>How to use Lenny Face Generator Tool?</h2>
+<p>The interface of this tool is very user-friendly. By following the steps given below, you can easily copy and paste Lenny Face according to your mood.</p>
+<ul>
+    <li><strong>Choose category:</strong> First of all, choose your favorite category. Like, Happy Lenny Face, Sad Lenny Face, Lenny Face Shrug, etc.</li>
+    <li><strong>Click on the face: </strong>As soon as the face appears, click on it. It will be copied automatically.</li>
+    <li><strong>Paste in any text field:</strong> Now you can easily paste this face anywhere, such as WhatsApp, Facebook, Instagram or any other social media platform.</li>
+</ul>
+<p><br></p>
+<h2>Benefits of Lenny Face Generator Tool</h2>
+<p><br></p>
+<p>Through this tool, you get the facility to create and copy different types of Lenny faces. These are some of the best features:</p>
+<ol>
+    <li><strong>Lots of face options:</strong> Here you will get many options according to every mood.</li>
+    <li><strong>Auto copy feature:</strong> As soon as you click on the face, it gets copied, which saves your time.</li>
+    <li><strong>Divided into two columns:</strong> Faces are shown in animated square shape in two columns, which makes it look even more interesting.</li>
+    <li><strong>User-friendly interface:</strong> Its interface is so simple that anyone can use it easily.</li>
+</ol>
+<p><br></p>
+<h2>Where can you use these Lenny Faces?</h2>
+<ul>
+    <li><strong>In social media posts:</strong> Make your post fun by adding a cute or funny Lenny Face to your Instagram or Facebook posts.</li>
+    <li><strong>Messaging apps: </strong>Express your mood like an emoticon in WhatsApp, Telegram or any messaging app.</li>
+    <li><strong>In video titles: </strong>You can also use Lenny Face in video titles on YouTube or other social media platforms.</li>
+</ul>
+<h2>FAQs (Frequently Asked Questions)</h2>
+<h3>1. Is Lenny Face Generator Tool free?</h3>
+<p>Yes, this tool is absolutely free and can be used at any time.</p>
+<p><br></p>
+<h3>2. Where can I use Lenny Face Shrug?</h3>
+<p>You can use it on social media or in chat to give a funny answer to a question.</p>
+<p><br></p>
+<h4>3. Can I use it on mobile too?</h4>
+<p>Yes, this tool can be easily used on both mobile and desktop.</p>
+<p><br></p>
+<h3>4. Why is Lenny Face Copy and Paste important?</h3>
+<p>The copy and paste option makes it easy to use, so you can quickly share the face according to your mood.</p>
+<p><br></p>
+<p>So the next time you want to express your feelings in a chat, use the Lenny Face Generator Tool and make your chatting even more fun. This tool will not only help you get your point across but will also add a special touch to your message.</p>
+</div>
+   <script src="script.js"></script>
+</body>
+    
+<!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-reddit" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 MyWebsite. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+</footer>
+</html>
