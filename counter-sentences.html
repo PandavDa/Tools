@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Counter Sentences - Tools Pandav Da</title>
+    <title>>Counter Sentences - Tools Pandav Da</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="style.css">
@@ -140,85 +140,9 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
 
       </script>
     </header>
+  
 <body>
-<!-- CSS for Styling the Interface -->
-<style>
-  /* General styling */
-  * {
-    box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
-  }
-
-  body {
-    background-color: #f0f4f8;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-  .container {
-    max-width: 800px;
-    width: 100%;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  h1 {
-    text-align: center;
-    color: #008080;
-    margin-bottom: 20px;
-  }
-
-  textarea {
-    width: 100%;
-    height: 150px;
-    resize: vertical;
-    padding: 15px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    outline: none;
-  }
-
-  .stats, .analysis, .errors {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-
-  .stats div, .analysis div, .errors div {
-    margin: 5px 0;
-  }
-
-  .highlighted {
-    color: #004d4d;
-    font-weight: bold;
-  }
-
-  .clear-btn {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background-color: #008080;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  .clear-btn:hover {
-    background-color: #006666;
-  }
-</style>
-
-<!-- JavaScript for Core and Advanced Functionalities -->
+   <!-- JavaScript for Core and Advanced Functionalities -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const textarea = document.querySelector('#textInput');
@@ -292,37 +216,39 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
 </script>
 
 <!-- HTML Structure for the User Interface -->
-<div class="container">
+<div>
   <h1>Advanced Counter Sentences</h1>
   
   <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
 
+  <!-- Paragraph Section -->
+  <p id="description">This tool analyzes your text to provide sentence, word, and character counts, along with readability scores and basic error detection.</p>
+
   <!-- Display statistics -->
-  <div class="stats">
-    <div><span class="highlighted">Sentence Count:</span> <span id="sentenceCount">0</span></div>
-    <div><span class="highlighted">Word Count:</span> <span id="wordCount">0</span></div>
-    <div><span class="highlighted">Character Count:</span> <span id="charCount">0</span></div>
-    <div><span class="highlighted">Average Sentence Length:</span> <span id="avgSentenceLength">0</span></div>
+  <div>
+    <div><span style="font-weight: bold; color: green;">Sentence Count:</span> <span id="sentenceCount">0</span></div>
+    <div><span style="font-weight: bold; color: green;">Word Count:</span> <span id="wordCount">0</span></div>
+    <div><span style="font-weight: bold; color: green;">Character Count:</span> <span id="charCount">0</span></div>
+    <div><span style="font-weight: bold; color: green;">Average Sentence Length:</span> <span id="avgSentenceLength">0</span></div>
   </div>
 
   <!-- Display readability -->
-  <div class="analysis">
-    <div><span class="highlighted">Readability Score:</span> <span id="readability">N/A</span></div>
+  <div>
+    <div><span style="font-weight: bold; color: green;">Readability Score:</span> <span id="readability">N/A</span></div>
   </div>
 
   <!-- Display error detection -->
-  <div class="errors">
-    <div><span class="highlighted">Errors:</span></div>
+  <div>
+    <div><span style="font-weight: bold; color: green;">Errors:</span></div>
     <div id="errors">No errors detected</div>
   </div>
 
-  <!-- Clear button -->
-  <button class="clear-btn" id="clearBtn">Clear Text</button>
+  <!-- Clear button with colorful style -->
+  <button id="clearBtn" style="background-color: #008080; color: #ffffff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Clear Text</button>
 </div>
 
-   <script src="script.js"></script>
 </body>
-    
+ <script src="script.js"></script>
 <!-- Footer Section -->
 <footer style="
     background-color: #333;
@@ -448,7 +374,7 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
 
         <!-- Copyright -->
         <div style="text-align: center; font-size: 0.9rem;">
-            <p>&copy; 2024 MyWebsite. All rights reserved.</p>
+            <p>&copy; 2024 Tools Pandav Da. All rights reserved.</p>
         </div>
     </div>
 
@@ -482,4 +408,6 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
         }
     </style>
 </footer>
+
+
 </html>
