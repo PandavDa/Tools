@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Pandav Da</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+    <header>
+        <!-- Logo and Site Title -->
+        <div class="logo-title">
+            <img src="logo.png" alt="MyLogo" class="logo-img">
+            <span class="site-title">MyWebsite</span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+    </header>
+  
+<body>
+   <!-- Chat Generator Form -->
+<div class="chat-generator">
+    <h2>Fake WhatsApp Chat Generator</h2>
+    
+    <!-- Participant Details -->
+    <label>Participant 1 Name:</label>
+    <input type="text" id="name1" placeholder="Enter Name" required>
+    
+    <label>Participant 2 Name:</label>
+    <input type="text" id="name2" placeholder="Enter Name" required>
+
+    <label>Participant 2 Profile Picture:</label>
+    <input type="file" id="profilePic" accept="image/*">
+
+    <!-- Custom Message Time -->
+    <label>Custom Message Time (HH:MM):</label>
+    <input type="time" id="customTime" required>
+</div>
+
+<!-- Chat Display Area with Header -->
+<div id="chatArea" class="chat-area">
+    <div id="chatHeader" class="chat-header">
+        <img id="participant2Dp" src="" alt="Participant 2" class="dp">
+        <div class="header-info">
+            <span id="participant2Name" class="name"></span>
+            <span id="status" class="status">Online</span>
+        </div>
+    </div>
+    <!-- Messages will be generated here dynamically -->
+</div>
+
+<!-- Message Input for Manual Typing -->
+<div class="message-inputs">
+    <label for="message1">Message from <span id="name1Display">Participant 1</span>:</label>
+    <input type="text" id="message1" placeholder="Type a message...">
+    <button onclick="sendMessage('participant1')">Send</button>
+
+    <label for="message2">Message from <span id="name2Display">Participant 2</span>:</label>
+    <input type="text" id="message2" placeholder="Type a message...">
+    <button onclick="sendMessage('participant2')">Send</button>
+</div>
+
+<!-- Download Button -->
+<button onclick="downloadChatAsImage()">Download Chat as PNG</button>
+
+<style>
+/* Styling for the chat display, input areas, and buttons */
+.chat-generator {
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #075e54;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.dp {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.header-info .name {
+    font-weight: bold;
+}
+
+.header-info .status {
+    font-size: 0.8em;
+    color: lightgray;
+    display: block;
+}
+
+.chat-area {
+    max-width: 400px;
+    background-color: #e5ddd5;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+    max-height: 300px; /* Set a max height for scrolling */
+}
+
+.chat-message {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 70%;
+    position: relative;
+}
+
+.sent {
+    background-color: #dcf8c6;
+    margin-left: auto;
+}
+
+.received {
+    background-color: #fff;
+    margin-right: auto;
+}
+
+.time-stamp {
+    font-size: 0.8em;
+    color: gray;
+    margin-top: 2px;
+    text-align: right;
+}
+
+.tick {
+    font-size: 1em;
+    margin-left: 5px;
+}
+
+.tick.read {
+    color: #34b7f1; /* Blue for read */
+}
+
+.tick.delivered {
+    color: gray; /* Gray for delivered */
+}
+
+.message-inputs {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-inputs input {
+    margin-bottom: 5px;
+}
+
+.message-inputs button {
+    align-self: flex-start;
+    padding: 5px 10px;
+    background-color: #25d366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #25d366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+document.getElementById("name1Display").innerText = document.getElementById("name1").value || "Participant 1";
+document.getElementById("name2Display").innerText = document.getElementById("name2").value || "Participant 2";
+
+function loadProfilePicture() {
+    const profilePic = document.getElementById("profilePic").files[0];
+    if (profilePic) {
+        const reader = new FileReader();
+        reader.onload = (e) => { document.getElementById("participant2Dp").src = e.target.result; };
+        reader.readAsDataURL(profilePic);
+    }
+    document.getElementById("participant2Name").innerText = document.getElementById("name2").value;
+}
+
+document.getElementById("profilePic").addEventListener("change", loadProfilePicture);
+
+// Function to set custom status (e.g., "last seen at HH:MM")
+function setStatus() {
+    const customTime = document.getElementById("customTime").value;
+    const statusElem = document.getElementById("status");
+    statusElem.innerText = `last seen at ${customTime}`;
+}
+
+// Function to send message
+function sendMessage(participant) {
+    const chatArea = document.getElementById("chatArea");
+    const customTime = document.getElementById("customTime").value || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    // Select the input field and set the message properties based on participant
+    let messageText = "";
+    let isSent = false;
+    if (participant === 'participant1') {
+        messageText = document.getElementById("message1").value;
+        isSent = true;
+        setStatus(); // Update to "last seen" for Participant 2
+    } else {
+        messageText = document.getElementById("message2").value;
+        isSent = false;
+    }
+
+    if (messageText.trim() === "") return;
+
+    // Create the chat message bubble
+    const message = document.createElement("div");
+    message.className = `chat-message ${isSent ? 'sent' : 'received'}`;
+
+    // Add the message text
+    const messageTextElem = document.createElement("span");
+    messageTextElem.className = "message-text";
+    messageTextElem.innerText = messageText;
+    message.appendChild(messageTextElem);
+
+    // Add timestamp and tick marks
+    const timeStamp = document.createElement("div");
+    timeStamp.className = "time-stamp";
+    timeStamp.innerText = customTime;
+
+    if (isSent) {
+        const tick = document.createElement("span");
+        tick.className = "tick";
+        tick.innerHTML = "&#10003;&#10003;"; // Blue double-tick for Participant 1's messages
+        tick.classList.add("read");
+        timeStamp.appendChild(tick);
+    }
+
+    // Append timestamp
+    message.appendChild(timeStamp);
+
+    // Append to chat area
+    chatArea.appendChild(message);
+
+    // Clear the input field after sending
+    document.getElementById(isSent ? "message1" : "message2").value = "";
+
+    // Scroll to bottom of chat area
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+// Download chat as PNG
+function downloadChatAsImage() {
+    html2canvas(document.getElementById("chatArea")).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "Tools.PandavDa-chat.png";
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+}
+</script>
+
+</body>
+ <script src="script.js"></script>
+<!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-reddit" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 MyWebsite. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+</footer>
+
+
+</html>
