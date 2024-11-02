@@ -141,7 +141,102 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
       </script>
     </header>
   
-<body> <div class="container">
+<body> 
+        
+ <title>Online XML Formatter</title>
+    <style>
+        /* Overall container styling */
+        .container {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        /* Textarea styling */
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+        
+        /* Options section */
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        label {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        select, input[type="number"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 0.9rem;
+            width: 80px;
+        }
+        
+        /* Button styling */
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            width: 100%;
+            max-width: 150px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-around;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            textarea {
+                font-size: 0.9rem;
+            }
+            button {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
         <h1>Online XML Formatter</h1>
 
         <!-- XML Input Area -->
@@ -181,7 +276,7 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
             }
         }
 
-        // Function to format XML with basic indentation
+        // Basic XML Formatter function for indentation
         function xmlFormatter(xml, indent) {
             const formatted = [];
             const regex = /(>)(<)(\/*)/g;
@@ -226,7 +321,7 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'formatted.xml';
+            a.download = 'Tools.PandavDa-formatted.xml';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
