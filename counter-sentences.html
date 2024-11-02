@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter Sentences - Tools Pandav Da</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+    <header>
+        <!-- Logo and Site Title -->
+        <div class="logo-title">
+            <img src="logo.png" alt="MyLogo" class="logo-img">
+            <span class="site-title">MyWebsite</span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+    </header>
+<body>
+<!-- CSS for Styling the Interface -->
+<style>
+  /* General styling */
+  * {
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+  }
+
+  body {
+    background-color: #f0f4f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .container {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    text-align: center;
+    color: #008080;
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 150px;
+    resize: vertical;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+  }
+
+  .stats, .analysis, .errors {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .stats div, .analysis div, .errors div {
+    margin: 5px 0;
+  }
+
+  .highlighted {
+    color: #004d4d;
+    font-weight: bold;
+  }
+
+  .clear-btn {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #008080;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .clear-btn:hover {
+    background-color: #006666;
+  }
+</style>
+
+<!-- JavaScript for Core and Advanced Functionalities -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const textarea = document.querySelector('#textInput');
+    const sentenceCountDisplay = document.querySelector('#sentenceCount');
+    const wordCountDisplay = document.querySelector('#wordCount');
+    const charCountDisplay = document.querySelector('#charCount');
+    const avgSentenceLengthDisplay = document.querySelector('#avgSentenceLength');
+    const readabilityDisplay = document.querySelector('#readability');
+    const errorsDisplay = document.querySelector('#errors');
+
+    textarea.addEventListener('input', updateTextStats);
+
+    function updateTextStats() {
+      const text = textarea.value;
+
+      // Basic counts
+      const sentences = text.match(/[^.!?]*[.!?]/g) || [];
+      const words = text.match(/\b\w+\b/g) || [];
+      const characters = text.replace(/\s/g, '');
+
+      // Calculating counts
+      sentenceCountDisplay.textContent = sentences.length;
+      wordCountDisplay.textContent = words.length;
+      charCountDisplay.textContent = characters.length;
+
+      // Average Sentence Length
+      const avgSentenceLength = (words.length / sentences.length || 0).toFixed(2);
+      avgSentenceLengthDisplay.textContent = avgSentenceLength;
+
+      // Readability Metrics (Flesch-Kincaid)
+      const syllableCount = countSyllables(words);
+      const readability = calculateReadability(sentences.length, words.length, syllableCount);
+      readabilityDisplay.textContent = readability;
+
+      // Error Detection (basic placeholder)
+      const errors = detectErrors(text);
+      errorsDisplay.innerHTML = errors.length > 0 ? errors.join('<br>') : "No errors detected";
+    }
+
+    // Count syllables in words (estimate for readability)
+    function countSyllables(words) {
+      return words.reduce((syllables, word) => {
+        word = word.toLowerCase();
+        word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
+        word = word.replace(/^y/, '');
+        return syllables + (word.match(/[aeiouy]{1,2}/g) || []).length;
+      }, 0);
+    }
+
+    // Calculate Flesch-Kincaid Readability Score
+    function calculateReadability(sentenceCount, wordCount, syllableCount) {
+      if (sentenceCount === 0 || wordCount === 0) return "N/A";
+      const fkScore = 206.835 - 1.015 * (wordCount / sentenceCount) - 84.6 * (syllableCount / wordCount);
+      return fkScore.toFixed(2);
+    }
+
+    // Basic error detection (placeholder for more advanced grammar check)
+    function detectErrors(text) {
+      const errors = [];
+      if (!/[.!?]$/.test(text.trim())) errors.push("Missing punctuation at the end.");
+      if ((text.match(/[^A-Z].[A-Z]/g) || []).length) errors.push("Possible missing punctuation between sentences.");
+      return errors;
+    }
+
+    // Clear Text and Reset Counts
+    document.querySelector('#clearBtn').addEventListener('click', () => {
+      textarea.value = '';
+      updateTextStats();
+    });
+  });
+</script>
+
+<!-- HTML Structure for the User Interface -->
+<div class="container">
+  <h1>Advanced Counter Sentences</h1>
+  
+  <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
+
+  <!-- Display statistics -->
+  <div class="stats">
+    <div><span class="highlighted">Sentence Count:</span> <span id="sentenceCount">0</span></div>
+    <div><span class="highlighted">Word Count:</span> <span id="wordCount">0</span></div>
+    <div><span class="highlighted">Character Count:</span> <span id="charCount">0</span></div>
+    <div><span class="highlighted">Average Sentence Length:</span> <span id="avgSentenceLength">0</span></div>
+  </div>
+
+  <!-- Display readability -->
+  <div class="analysis">
+    <div><span class="highlighted">Readability Score:</span> <span id="readability">N/A</span></div>
+  </div>
+
+  <!-- Display error detection -->
+  <div class="errors">
+    <div><span class="highlighted">Errors:</span></div>
+    <div id="errors">No errors detected</div>
+  </div>
+
+  <!-- Clear button -->
+  <button class="clear-btn" id="clearBtn">Clear Text</button>
+</div>
+
+   <script src="script.js"></script>
+</body>
+    
+<!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-reddit" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 MyWebsite. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+</footer>
+</html>
