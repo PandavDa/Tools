@@ -140,102 +140,10 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
 
       </script>
     </header>
-
-
   
 <body>
-    <!--Lenny-->
- <div style="max-width: 600px; margin: auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-    <h1 style="text-align: center; font-family: Arial, sans-serif;">Cool Lenny Face Generator</h1>
-    <label for="category" style="display: block; margin-bottom: 10px;">Select a Category:</label>
-    <select id="category" style="width: 100%; padding: 10px; margin-bottom: 20px;">
-        <option value="">--Select a Category--</option>
-        <option value="happy">Happy Faces</option>
-        <option value="sad">Sad Faces</option>
-        <option value="angry">Angry Faces</option>
-        <option value="surprised">Surprised Faces</option>
-        <option value="confused">Confused Faces</option>
-        <option value="shrug">Shrug Faces</option> <!-- New Shrug Category -->
-    </select>
-    <button id="generateBtn" style="width: 100%; padding: 10px; margin-bottom: 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Generate Lenny Faces</button>
-    <h2 style="font-family: Arial, sans-serif;">Generated Faces:</h2>
-    <div id="faceGrid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;"></div>
-</div>
-
-<script>
-// Lenny Faces by category
-const lennyFaces = {
-    happy: ["( ͡° ͜ʖ ͡°)", "( ͠° ͟ʖ ͡°)", "(ᵔᴥᵔ)", "( ͡ᵔ ͜ʖ ͡ᵔ)", "( ͡°ᴥ ͡°)", "(•‿•)", "(≧◡≦)", "(✿◠‿◠)", 
-            "(◕‿◕)", "(ʘ‿ʘ)", "(^_^)", "(¬‿¬)", "(´ω`)", "(づ｡◕‿‿◕｡)づ", "(ᵔωᵔ)", "٩(◕‿◕｡)۶", "(✧ω✧)", 
-            "(*≧ω≦)", "٩(｡•́‿•̀｡)۶", "(♥‿♥)"],
-    sad: ["(︶︹︺)", "(ಥ_ಥ)", "(╥_╥)", "(T_T)", "(⋟﹏⋞)", "(｡•́︿•̀｡)", "(っ- ‸ – ς)", "(◞‸◟)", "(｡•́︿•̀｡)", 
-          "(◕︵◕)", "(ಥ﹏ಥ)", "(︶︹︶)", "(つω`｡)", "(⌓⍕⌓)", "(´д`)", "(⍨︵⍨)", "(T⌓T)", "(⊙︿⊙)", "(◞‸◟)", 
-          "(´༎ຶ︵༎ຶ`)"],
-    angry: ["( ಠ益ಠ)", "(ノಠ益ಠ)ノ彡┻━┻", "(¬_¬)", "( ͠° ͟ʖ ͡°)", "( •̀_•́)", "(¬‿¬)", "(｀Д´)", "(ಠ⌣ಠ)", 
-            "(•̀o•́)", "(ʘ言ʘ╬)", "( •̀_•́)", "(；⌣̀_⌣́)", "(눈_눈)", "(>_<)", "(ಠ_ಠ)", "(ᕗ ಠ益ಠ)ᕗ", 
-            "(>ლ)", "(´•ω•̥`)", "(￣︿￣)", "(ಥ﹏ಥ)"],
-    surprised: ["(ʘ‿ʘ)", "(ʘoʘ)", "(⊙_☉)", "(°ロ°)", "(°д°)", "(ﾟДﾟ;)", "(⊙o⊙)", "(⊙▃⊙)", "(☉_☉)", "(≧o≦)", 
-                "(＠_＠;)", "(◉_◉)", "(゜ロ゜)", "(ಠ_ಠ)", "(☉_☉)", "( •o•)", "(⊙_⊙)", "( °◊°)", "(｡ŏ_ŏ)", "(°O°)"],
-    confused: ["(⊙_☉)", "(⊙_☉)", "(ಠ.ಠ)", "(⊙﹏⊙)", "( °▽°)", "(ー_ー)", "(°◡°)", "(´ヘ｀;)", "(｡ŏ_ŏ)", "( •_•)", 
-               "(¬_¬)", "(⊙.☉)", "(•.•)", "( °ロ°)", "(눈_눈)", "(•_•)", "(゜-゜)", "(｡◕‿◕｡)", "(o.o)", "(⊙_⊙)"],
-    shrug: ["( ͡° ͜ʖ ͡°)", "( ͡o‿O͡)", "( ͡° ͜ʖ ͡°)¯\\_(ツ)_/¯", "( ͡ʘ ͜ʖ ͡ʘ)", "( ͡° ͜ʖ ͡°)", "(o_O ͡)", 
-            "( ͡° ͜ʖ ͡°)", "( ͡ʘ ͜ʖ ͡ʘ)", "( ͡° ͜ʖ ͡°) ¯\\_(ツ)_/¯", "( ͡o‿‿O͡)", "( ͡° ͜ʖ ͡°)", "( ͡ʘ ͜ʖ ͡ʘ)", 
-            "( ͡° ͜ʖ ͡°)", "( ͡o_O ͡)", "( ͡° ͜ʖ ͡°)", "( ͡ʘ ͜ʖ ͡ʘ)", "( ͡° ͜ʖ ͡°) ¯\\_(ツ)_/¯", "( ͡o‿‿O͡)", 
-            "( ͡° ͜ʖ ͡°)", "( ͡ʘ ͜ʖ ͡ʘ)"] // New Shrug Faces
-};
-
-// Generate Lenny Faces based on selected category
-document.getElementById('generateBtn').addEventListener('click', () => {
-    const category = document.getElementById('category').value;
-    const faceGrid = document.getElementById('faceGrid');
-    faceGrid.innerHTML = ''; // Clear previous faces
-
-    if (category && lennyFaces[category]) {
-        lennyFaces[category].forEach(face => {
-            const faceDiv = document.createElement('div');
-            faceDiv.style = `
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background: #f8f9fa;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
-                font-size: 1.4em;
-                color: #333;
-                cursor: pointer;
-                transition: transform 0.2s, background-color 0.2s;
-            `;
-            faceDiv.textContent = face;
-
-            // Copy to clipboard and animate
-            faceDiv.onclick = () => {
-                navigator.clipboard.writeText(face).then(() => {
-                    faceDiv.style.backgroundColor = '#d4edda';
-                    faceDiv.style.color = '#155724';
-                    faceDiv.style.transform = 'scale(0.9)';
-                    faceDiv.textContent = `${face} (Copied!)`;
-                    setTimeout(() => {
-                        faceDiv.style.backgroundColor = '#f8f9fa';
-                        faceDiv.style.color = '#333';
-                        faceDiv.style.transform = 'scale(1)';
-                        faceDiv.textContent = face;
-                    }, 1000);
-                });
-            };
-
-            faceGrid.appendChild(faceDiv);
-        });
-    } else {
-        alert('Please select a category!');
-    }
-});
-</script>
-
     <script src="script.js"></script>
 </body>
-    <!-- Footer Section -->
-
 <!-- Footer Section -->
 <footer style="
     background-color: #333;
