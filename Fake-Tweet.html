@@ -1,0 +1,246 @@
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fake Tweet Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1><a href="index.html">Fake Tweet Generator</a></h1>
+
+    <!-- Form for Tweet Details -->
+    <div class="form">
+      <label>Upload Profile Picture</label>
+      <input type="file" id="profilePicture" accept="image/*"><br>
+
+      <label>Name</label>
+      <input type="text" id="name" maxlength="50" placeholder="Name"><br>
+
+      <label>Username</label>
+      <input type="text" id="username" maxlength="15" placeholder="Username"><br>
+
+      <label>Message</label>
+      <textarea id="message" maxlength="280" placeholder="What's happening?"></textarea><br>
+
+      <label>Time</label>
+      <input type="text" id="time" placeholder="hh:mm"><br>
+
+      <label>Date</label>
+      <input type="text" id="date" placeholder="mmm dd, yyyy"><br>
+
+      <label>Client</label>
+      <input type="text" id="client" placeholder="Twitter for iPhone"><br>
+
+      <label>Retweets Count</label>
+      <input type="number" id="retweets" value="0"><br>
+
+      <label>Quote Tweets Count</label>
+      <input type="number" id="quoteTweets" value="0"><br>
+
+      <label>Likes Count</label>
+      <input type="number" id="likes" value="0"><br>
+
+      <label>Theme</label>
+      <select id="theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select><br>
+
+      <label>Verified Badge</label>
+      <input type="checkbox" id="verified"> Verified<br>
+
+      <button onclick="generateTweet()">Convert to Tweet</button>
+    </div>
+
+    <!-- Tweet Preview -->
+    <div id="tweetPreview" class="tweet light-theme">
+      <div class="header">
+        <img id="profilePicPreview" src="Verified-Badge.webp" alt="Profile Picture" class="profile-pic">
+        <div class="name-username">
+          <span id="namePreview">Name</span>
+          <img id="verifiedBadge" src="Verified-Badge.webp" style="display: none;" alt="Verified Badge" class="verified-badge">
+          <br>
+          <span id="usernamePreview">@username</span>
+        </div>
+      </div>
+      <div id="messagePreview" class="message">What's happening?</div>
+      <div class="footer">
+        <span id="timePreview">12:34</span>
+        <span>·</span>
+        <span id="datePreview">Jan 1, 2022</span>
+        <span>·</span>
+        <span id="clientPreview">Twitter for iPhone</span>
+      </div>
+      <div class="stats">
+        <span id="retweetsPreview">0 Retweets</span>
+        <span>·</span>
+        <span id="quoteTweetsPreview">0 Quote Tweets</span>
+        <span>·</span>
+        <span id="likesPreview">0 Likes</span>
+      </div>
+      <div class="actions">
+        <button>Reply</button>
+        <button>Repost</button>
+        <button>Like</button>
+        <button>Share</button>
+      </div>
+    </div>
+
+    <button onclick="downloadTweet()">Download as PNG</button>
+  </div>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+}
+
+.tweet {
+  border: 1px solid #e1e8ed;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.tweet.light-theme {
+  background-color: #ffffff;
+  color: #14171a;
+}
+
+.tweet.dark-theme {
+  background-color: #1c2938;
+  color: #ffffff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.name-username {
+  display: inline-block;
+}
+
+#namePreview {
+  font-weight: bold;
+  display: inline;
+}
+
+#usernamePreview {
+  display: block;
+  color: #657786;
+}
+
+.verified-badge {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.message {
+  margin: 10px 0;
+  white-space: pre-wrap;
+}
+
+.footer, .stats, .actions {
+  font-size: 12px;
+  color: #657786;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  color: #657786;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+</style>
+<script>
+document.getElementById("profilePicture").addEventListener("change", function (e) {
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    document.getElementById("profilePicPreview").src = event.target.result;
+  };
+  reader.readAsDataURL(e.target.files[0]);
+});
+
+function formatNumber(number) {
+  if (number >= 1000) return (number / 1000).toFixed(1) + 'k';
+  return number;
+}
+
+function generateTweet() {
+  document.getElementById("namePreview").textContent = document.getElementById("name").value || "Name";
+  document.getElementById("usernamePreview").textContent = `@${document.getElementById("username").value || "username"}`;
+  document.getElementById("messagePreview").textContent = document.getElementById("message").value || "What's happening?";
+  document.getElementById("timePreview").textContent = document.getElementById("time").value || "12:34";
+  document.getElementById("datePreview").textContent = document.getElementById("date").value || "Jan 1, 2022";
+  document.getElementById("clientPreview").textContent = document.getElementById("client").value || "Twitter for iPhone";
+
+  // Format Retweets, Quote Tweets, and Likes Count
+  const retweetsCount = formatNumber(parseInt(document.getElementById("retweets").value) || 0);
+  const quoteTweetsCount = formatNumber(parseInt(document.getElementById("quoteTweets").value) || 0);
+  const likesCount = formatNumber(parseInt(document.getElementById("likes").value) || 0);
+
+  document.getElementById("retweetsPreview").textContent = `${retweetsCount} Retweets`;
+  document.getElementById("quoteTweetsPreview").textContent = `${quoteTweetsCount} Quote Tweets`;
+  document.getElementById("likesPreview").textContent = `${likesCount} Likes`;
+
+  // Apply Theme and Display Verified Badge
+  const theme = document.getElementById("theme").value;
+  document.getElementById("tweetPreview").className = `tweet ${theme}-theme`;
+  document.getElementById("verifiedBadge").style.display = document.getElementById("verified").checked ? "inline" : "none";
+}
+
+function downloadTweet() {
+  html2canvas(document.getElementById("tweetPreview")).then((canvas) => {
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = "Tools.PandavDa-fake-tweet.png";
+    link.click();
+  });
+}
+</script>
+  <script src="script.js"></script>
+</body>
+</html>
