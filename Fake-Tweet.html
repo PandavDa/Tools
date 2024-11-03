@@ -11,6 +11,7 @@
 <body>
   <div class="container">
     <h1><a href="index.html">Fake Tweet Generator</a></h1>
+      <p>Generate Your Fav Parson Fake TweeT</p>
 
     <!-- Form for Tweet Details -->
     <div class="form">
@@ -193,8 +194,20 @@ input, textarea, select {
   font-size: 12px;
   cursor: pointer;
 }
-
+button {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 </style>
+
 <script>
 document.getElementById("profilePicture").addEventListener("change", function (e) {
   const reader = new FileReader();
