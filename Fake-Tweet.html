@@ -1,18 +1,147 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fake Tweet Generator</title>
+  <title>Fake Tweet Generator - Tools Pandav Da</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
+
 <body>
   <div class="container">
-    <h1><a href="index.html">Fake Tweet Generator</a></h1>
-      <p>Generate Your Fav Parson Fake TweeT</p>
+  <header>
+        <!-- Logo and Site Title -->
+        <div class="logo-title">
+            <img src="logo.png" alt="MyLogo" class="logo-img">
+            <span class="site-title">Tools Pandav Da</span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about-us.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+    </header>
+        
     <!-- Form for Tweet Details -->
     <div class="form">
       <label>Upload Profile Picture</label>
@@ -26,6 +155,9 @@
 
       <label>Message</label>
       <textarea id="message" maxlength="280" placeholder="What's happening?"></textarea><br>
+
+      <label>Upload Images (up to 4)</label>
+      <input type="file" id="tweetImages" accept="image/*" multiple><br>
 
       <label>Time</label>
       <input type="text" id="time" placeholder="hh:mm"><br>
@@ -60,15 +192,19 @@
     <!-- Tweet Preview -->
     <div id="tweetPreview" class="tweet light-theme">
       <div class="header">
-        <img id="profilePicPreview" src="Verified-Badge.webp" alt="Profile Picture" class="profile-pic">
+        <img id="profilePicPreview" src="default-profile.png" alt="Profile Picture" class="profile-pic">
         <div class="name-username">
           <span id="namePreview">Name</span>
-          <img id="verifiedBadge" src="Verified-Badge.webp" style="display: none;" alt="Verified Badge" class="verified-badge">
+          <img id="verifiedBadge" src="verified-badge.png" style="display: none;" alt="Verified Badge" class="verified-badge">
           <br>
           <span id="usernamePreview">@username</span>
         </div>
       </div>
       <div id="messagePreview" class="message">What's happening?</div>
+      
+      <!-- Image preview section -->
+      <div id="imagePreview" class="image-preview"></div>
+
       <div class="footer">
         <span id="timePreview">12:34</span>
         <span>·</span>
@@ -91,8 +227,225 @@
       </div>
     </div>
 
-    <button onclick="downloadTweet()">Download as PNG</button>
+    <button onclick="downloadTweet()">Download as PNG</button><br>
+    <h1 style="text-align: left;">Fake Tweet Generator Tool: Best Tool for Social Media Fun</h1>
+<p style="text-align: left;">Fake Tweet Generator is an online tool that helps you create fake tweets that look exactly like real tweets. This tool can be used in a variety of ways, such as having fun with friends, trending on social media, or just expressing creativity. In this article we will discuss in detail the various features and usage methods of Fake Tweet Generator Tool.</p>
+<p style="text-align: left;"><br></p>
+<h2 style="text-align: left;">What is Fake Tweet Generator?</h2>
+<p style="text-align: left;">Fake Tweet Generator is an easy-to-use online tool that lets you create fake tweets by customizing your name, profile picture, tweet time, and more. It has become very popular among social media content creators and general users as it is a very simple and fun tool.</p>
+<p style="text-align: left;"><br></p>
+<h2 style="text-align: left;">Features of Fake Tweet Generator</h2>
+<p style="text-align: left;">This tool has multiple useful and user-friendly features that make your fake tweet creation process more fun and realistic.</p>
+<ul>
+    <li style="text-align: left;"><strong>Profile Picture Upload:</strong> You can add a profile picture to your fake tweet to make it look more realistic. Uploading the image will show it in the tweet preview.</li>
+    <li style="text-align: left;"><strong>Name and Username Customization:</strong> You can set your name and username that will appear above the tweet. This helps to make tweets more personalized.</li>
+    <li style="text-align: left;"><strong>Message Customization:</strong> Write your own tweet message and display it in the tweet. The message should be limited to 280 characters, as in the original tweet.</li>
+    <li style="text-align: left;"><strong>Date and time setting:</strong> You can set the tweet date and time, which shows when your tweet was posted.</li>
+    <li style="text-align: left;"><strong>Retweet and Like Count:</strong> Make it look more realistic by displaying the number of retweets, quote tweets and likes of a tweet.</li>
+    <li style="text-align: left;"><strong>Tweet client selection:&nbsp;</strong>You can show tweets posted from different clients like &quot;Twitter for iPhone&quot;, &quot;Twitter for Android&quot; or &quot;Twitter Web App&quot;.</li>
+    <li style="text-align: left;"><strong>Verified Badge:</strong> To make your fake tweet more credible you can add a blue verified badge, which makes your account look verified.</li>
+    <li style="text-align: left;"><strong>Tweet Theme Selection:</strong> You can select Light and Dark themes.</li>
+    <li style="text-align: left;"><strong>Image Upload:</strong> Fake tweets also have the facility to add images. You can add up to 4 images at a time, which will make your tweets more attractive.</li>
+    <li style="text-align: left;"><strong>Download facility:&nbsp;</strong>You can easily download your created fake tweet in PNG format and share it on social media.</li>
+</ul>
+<p style="text-align: left;"><br></p>
+<h2 style="text-align: left;">Why Use Fake Tweet Generator?</h2>
+<p style="text-align: left;">Fake Tweet Generator can help you create funny content in many ways. You can use it to fulfill the following purposes:</p>
+<ul>
+    <li style="text-align: left;"><strong>Fun with friends:&nbsp;</strong>You can have fun with friends by creating funny and funny tweets.</li>
+    <li style="text-align: left;">Social Media Challenge: Start a new challenge on social media by sharing your fake tweets.</li>
+    <li style="text-align: left;"><strong>Creating Meme Content:</strong> Creating memes using Fake Tweet Generator is very easy.</li>
+    <li style="text-align: left;"><strong>Educational purpose:</strong> Sometimes fake tweets are created for educational purposes or to create content, so that students or followers can understand a particular topic.</li>
+</ul>
+<h2 style="text-align: left;">How to use Fake Tweet Generator?</h2>
+<p style="text-align: left;">Creating fake tweets is very easy. Below is the step-by-step tutorial</p>
+<ul>
+    <li style="text-align: left;">First upload the profile picture (if you want to use it).</li>
+    <li style="text-align: left;">Enter your name and username.</li>
+    <li style="text-align: left;">Type a funny or interesting message.</li>
+    <li style="text-align: left;">Select the time, date and device used for the tweet.</li>
+    <li style="text-align: left;">Select your preferred theme (light or dark).</li>
+    <li style="text-align: left;">If you want to add images, upload the image.</li>
+    <li style="text-align: left;">After customization click on &quot;Convert to Tweet&quot; button.</li>
+    <li style="text-align: left;">After viewing the preview, download it in PNG format.</li>
+</ul>
+<h2 style="text-align: left;">Safety and Usage Guidelines for Fake Tweet Generator</h2>
+<p style="text-align: left;">The Fake Tweet Generator Tool should be used for fun and educational purposes only. It should not be used to spread any kind of confusion or <a href="https://www.apa.org/topics/journalism-facts/misinformation-disinformation" target="_blank" rel="noopener noreferrer">misinformation</a>. Spreading false information on social media platforms like tweets is a legal offense, so this tool should only be used for fun.</p>
+<p style="text-align: left;"><br></p>
+<h2 style="text-align: left;">Conclusion</h2>
+<p style="text-align: left;">Fake Tweet Generator is a tool that helps you create creative and engaging content easily. Whether you are a social media manager, meme creator, or just a simple user, this tool will make your social media experience more fun. You can use it to amuse your friends and followers and create interesting content that looks just like real tweets.</p>
+<blockquote>
+    <p style="text-align: left;"><strong>Read More</strong></p>
+    <p style="text-align: left;"><a href="http://fake-chat.html" target="_blank" rel="noopener noreferrer">Fake WhatsApp Generator</a></p>
+    <p style="text-align: left;"><a href="http://lenny-face.html">Lenny Face Generator</a></p>
+    <p style="text-align: left;"><a href="http://counter-sentences.html" target="_blank" rel="noopener noreferrer">Counter Sentences</a></p>
+</blockquote><br>
+  <!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="about-me.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="portfolio.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="our-sevices.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="index.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="about-us.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="services.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="contact.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-reddit" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 Pandav Da. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+</footer>
+
+  
   </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -176,6 +529,18 @@ input, textarea, select {
   white-space: pre-wrap;
 }
 
+.image-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.image-preview img {
+  width: 100%;
+  max-width: 150px;
+  border-radius: 10px;
+}
+
 .footer, .stats, .actions {
   font-size: 12px;
   color: #657786;
@@ -207,7 +572,6 @@ button {
   cursor: pointer;
 }
 </style>
-
 <script>
 document.getElementById("profilePicture").addEventListener("change", function (e) {
   const reader = new FileReader();
@@ -215,6 +579,21 @@ document.getElementById("profilePicture").addEventListener("change", function (e
     document.getElementById("profilePicPreview").src = event.target.result;
   };
   reader.readAsDataURL(e.target.files[0]);
+});
+
+document.getElementById("tweetImages").addEventListener("change", function (e) {
+  const imagePreviewContainer = document.getElementById("imagePreview");
+  imagePreviewContainer.innerHTML = ""; // Clear previous images
+
+  Array.from(e.target.files).slice(0, 4).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      const img = document.createElement("img");
+      img.src = event.target.result;
+      imagePreviewContainer.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
 });
 
 function formatNumber(number) {
@@ -249,11 +628,8 @@ function downloadTweet() {
   html2canvas(document.getElementById("tweetPreview")).then((canvas) => {
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
-    link.download = "Tools.PandavDa-fake-tweet.png";
+    link.download = "Tools-PandavDa-fake-tweet.png";
     link.click();
   });
 }
 </script>
-  <script src="script.js"></script>
-</body>
-</html>
