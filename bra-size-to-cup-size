@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description" content="Use our Bra Size to Cup Size Converter to find your perfect fit. Calculate ideal bra size, discover sister sizes, and view international conversions. Get style recommendations and size charts to suit your needs.">
+    <meta name="keywords" content="bra size converter, cup size calculator, bra size chart, sister sizes, international bra sizes, bra style recommendations, women's bra sizes">
+
+    <title>Bra Size to Cup Size - Tools Pandav Da</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+    <header>
+        <!-- Logo and Site Title -->
+        <div class="logo-title">
+            <img src="logo.png" alt="MyLogo" class="logo-img">
+            <span class="site-title"><a href="index.html">Tools Pandav Da</a></span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+    </header>
+  
+<body>
+  <div class="container">
+        <h1>Bra Size to Cup Size Converter</h1>
+        
+        <div class="calculator">
+            <h2>Calculate Your Bra Size</h2>
+            <form id="braSizeForm">
+                <label for="bandSize">Band Size:</label>
+                <input type="number" id="bandSize" placeholder="e.g., 34" required>
+
+                <label for="bustSize">Bust Size:</label>
+                <input type="number" id="bustSize" placeholder="e.g., 36" required>
+
+                <button type="button" onclick="calculateBraSize()">Calculate</button>
+            </form>
+            <div id="result"></div>
+        </div>
+
+        <div class="converter">
+            <h2>Convert Bra Size</h2>
+            <form id="convertForm">
+                <label for="currentBand">Band Size:</label>
+                <input type="number" id="currentBand" placeholder="e.g., 34" required>
+
+                <label for="currentCup">Cup Size:</label>
+                <input type="text" id="currentCup" placeholder="e.g., B" required>
+
+                <button type="button" onclick="convertBraSize()">Convert</button>
+            </form>
+            <div id="conversionResult"></div>
+        </div>
+
+        <div class="recommendations">
+            <h2>Recommendations</h2>
+            <p>Based on your bra size, here are some bra styles that might suit you best:</p>
+            <ul id="styleRecommendations">
+                <!-- Recommendations will be inserted here by JavaScript -->
+            </ul>
+        </div>
+        
+        <div class="chart">
+            <h2>Bra Size Chart</h2>
+            <table>
+                <tr>
+                    <th>Band Size</th>
+                    <th>A Cup</th>
+                    <th>B Cup</th>
+                    <th>C Cup</th>
+                    <th>D Cup</th>
+                </tr>
+                <tr>
+                    <td>32</td>
+                    <td>32A</td>
+                    <td>32B</td>
+                    <td>32C</td>
+                    <td>32D</td>
+                </tr>
+                <tr>
+                    <td>34</td>
+                    <td>34A</td>
+                    <td>34B</td>
+                    <td>34C</td>
+                    <td>34D</td>
+                </tr>
+                <tr>
+                    <td>36</td>
+                    <td>36A</td>
+                    <td>36B</td>
+                    <td>36C</td>
+                    <td>36D</td>
+                </tr>
+                <tr>
+                    <td>38</td>
+                    <td>38A</td>
+                    <td>38B</td>
+                    <td>38C</td>
+                    <td>38D</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 2em auto;
+    padding: 20px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+.calculator, .converter, .recommendations, .chart {
+    margin-top: 1.5em;
+}
+
+label {
+    display: block;
+    margin: 0.5em 0 0.2em;
+}
+
+input[type="number"], input[type="text"], button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+#result, #conversionResult {
+    font-weight: bold;
+    margin-top: 0.5em;
+    color: #007bff;
+}
+</style>
+<script>
+// Calculate Bra Size
+function calculateBraSize() {
+    const bandSize = parseInt(document.getElementById("bandSize").value);
+    const bustSize = parseInt(document.getElementById("bustSize").value);
+    let resultText = "";
+
+    if (isNaN(bandSize) || isNaN(bustSize)) {
+        resultText = "Please enter valid numbers for both band and bust size.";
+    } else {
+        const cupSize = bustSize - bandSize;
+        const cupLetter = getCupLetter(cupSize);
+
+        resultText = `Your ideal bra size is: ${bandSize}${cupLetter}`;
+        suggestBraStyles(cupLetter);
+    }
+
+    document.getElementById("result").textContent = resultText;
+}
+
+// Convert Bra Size
+function convertBraSize() {
+    const currentBand = parseInt(document.getElementById("currentBand").value);
+    const currentCup = document.getElementById("currentCup").value.toUpperCase();
+    const sisterSizes = getSisterSizes(currentBand, currentCup);
+
+    document.getElementById("conversionResult").textContent = 
+        `Sister Sizes for ${currentBand}${currentCup}: ${sisterSizes.join(", ")}`;
+}
+
+// Get Cup Letter based on difference
+function getCupLetter(cupSizeDifference) {
+    const cupLetters = ["AA", "A", "B", "C", "D", "DD", "DDD"];
+    return cupLetters[Math.min(cupSizeDifference, cupLetters.length - 1)];
+}
+
+// Sister Size Calculation
+function getSisterSizes(bandSize, cupSize) {
+    const sisterSizes = [
+        `${bandSize - 2}${cupSize}`,
+        `${bandSize}${cupSize}`,
+        `${bandSize + 2}${cupSize}`
+    ];
+    return sisterSizes;
+}
+
+// Bra Style Suggestions
+function suggestBraStyles(cupSize) {
+    const styleRecommendations = {
+        "A": ["Push-up Bra", "Balconette Bra"],
+        "B": ["T-shirt Bra", "Wireless Bra"],
+        "C": ["Full Coverage Bra", "Plunge Bra"],
+        "D": ["Supportive Bra", "Sports Bra"],
+        "DD": ["Minimizer Bra", "Underwire Bra"]
+    };
+
+    const styles = styleRecommendations[cupSize] || ["Standard Bra"];
+    const recommendationsList = document.getElementById("styleRecommendations");
+    recommendationsList.innerHTML = styles.map(style => `<li>${style}</li>`).join("");
+}
+</script>
+<!--Article-->
+<div class="article">
+<style>
+h1, h2, h3, h4, p, li, ul {
+  margin: 25px;
+
+}
+</style>
+ <h1 style="text-align: left;">Bra Size to Cup Size Converter &ndash; A Great Tool for Your Perfect Fit!</h1>
+<p style="text-align: left;">Nowadays it is the time of online shopping and self-measurement, and a bra size converter tool can be quite helpful in this. This tool helps to accurately convert your bra size, cup size, and sister sizes, so that you can select the best-fitting bra for yourself without any confusion.</p>
+<p style="text-align: left;"><br></p>
+<h2 style="text-align: left;">What is the use of Bra Size Converter?</h2>
+<p style="text-align: left;">With the help of our Bra Size to Cup Size Converter, you can find out your perfect bra size by entering your band size and cup size. This tool is not just a basic size calculator but also supports international bra sizes where you can see conversion between US, UK, and EU sizes.</p>
+<p style="text-align: left;"><br></p>
+<h2 style="text-align: left;">Tool Features:</h2>
+<p style="text-align: left;"><br></p>
+<h3 style="text-align: left;">1. Accurate Bra Size Calculation</h3>
+<p style="text-align: left;">This tool calculates the difference between your band size and bust size and gives you the correct bra size. All you have to do is enter your band size and bust size and the tool will instantly give you the correct cup size and fitting.</p>
+<p style="text-align: left;"><br></p>
+<h3 style="text-align: left;">2. International Size Conversion</h3>
+<p style="text-align: left;">If you want to purchase bras from different brands or in international markets, this tool is helpful in converting those sizes as well. With conversions from UK, EU, and Australia sizes, you can easily identify your correct size from globally available brands.</p>
+<p style="text-align: left;"><br></p>
+<h3 style="text-align: left;">3. Sister Size Calculator</h3>
+<p style="text-align: left;">Sister sizes are sizes that are similar in fit but have a slight difference in band and cup size. For example, if your size is 34B, your sister sizes could be 32C and 36A. This tool also suggests possible sister sizes based on your band and cup size, so you can find a comfortable fit.</p>
+<p style="text-align: left;"><br></p>
+<h3 style="text-align: left;">4. Bra Style Recommendations</h3>
+<p style="text-align: left;">Different bra styles are recommended for each cup size and body type, and this tool provides those suggestions for you too. For example, if you are an A or B cup size, you may find push-up or balconette bras more comfortable, while larger sizes recommend full coverage and underwire bras.</p>
+<p style="text-align: left;"><br></p>
+<h3 style="text-align: left;">5. Size Chart</h3>
+<p style="text-align: left;">The size chart lets you easily compare standard band and cup sizes. This bra size chart displays cups with different band sizes, so you can get an idea of which combination may be the best fit for you.</p>
+<p style="text-align: left;"><br></p>
+<h2 style="text-align: left;">How to Use the Tool?</h2>
+<ul>
+    <li style="text-align: left;"><strong>Enter Band and Bust Size: </strong>Enter your band and bust measurements to get your correct cup size.</li>
+</ul>
+<p style="text-align: left;"><br></p>
+<ul>
+    <li style="text-align: left;"><strong>Convert Your Size: </strong>If you want to convert between different brands or check sister sizes, then press the &ldquo;Convert&rdquo; button.</li>
+</ul>
+<p style="text-align: left;"><br></p>
+<ul>
+    <li style="text-align: left;"><strong>View Result:</strong> The tool will display accurate size suggestions, international size conversions and style recommendations.</li>
+</ul>
+<p style="text-align: left;"><br></p>
+<h2 style="text-align: left;">Why is this tool useful?</h2>
+<p style="text-align: left;"><br></p>
+<p style="text-align: left;">Nowadays the options for bra shopping have increased and a lot of variety and sizes are available, but the size and fit of all is different. This tool is especially helpful for those people who do self-measurement for the first time or get confused in bra size conversion for online shopping. Its features are so user-friendly that you can get your correct size without any hassle.</p>
+<p style="text-align: left;"><br></p>
+<h2 style="text-align: left;">FAQs</h2>
+<h3 style="text-align: left;">1. How to know whether the size is correct or not?</h3>
+<p style="text-align: left;">The size shown in the tool is based on your given measurements and its recommendations are accurate. If you are uncomfortable with the fit, you can try sister sizes as well.</p>
+<p style="text-align: left;"><br></p>
+<h3 style="text-align: left;">2. How are International sizes converted?</h3>
+<p style="text-align: left;">This tool also has conversion of UK, EU, and AU sizes available so that you can easily shop in any market.</p>
+<p style="text-align: left;"><br></p>
+<h3 style="text-align: left;">3. How are the recommendations for Bra styles met?</h3>
+<p style="text-align: left;">Suitable bra styles are suggested for you based on your cup size and body type such as push-up, full coverage, or underwire bras.</p>
+<p style="text-align: left;"><br></p>
+<h2 style="text-align: left;">Conclusion</h2>
+<p style="text-align: left;">It is easy to discover your perfect fit with our Bra Size to Cup Size Converter. This tool provides you with correct bra size, sister sizes, and best bra style recommendations, so that you can feel confident in your shopping without any confusion. Try it today and get the perfect bra size for yourself!</p>
+
+<br>
+<blockquote>
+    <p style="text-align: left;"><strong>Read More</strong></p>
+    <p style="text-align: left;"><a href="Fake-Chat.html">Fake WhatsApp Generator</a></p>
+    <p style="text-align: left;"><a href="lenny-face.html">Lenny Face Generator</a></p>
+    <p style="text-align: left;"><a href="counter-sentences.html">Counter Sentences</a></p>
+</blockquote>
+</div>
+<br>
+</body>
+<!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-reddit" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 MyWebsite. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+</footer>
+
+  <script src="script.js"></script>
+</html>
