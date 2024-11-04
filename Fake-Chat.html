@@ -142,9 +142,317 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
     </header>
   
 <body>
-<center>
+<div class="chat-generator">
+    <h2>Fake WhatsApp Chat Generator</h2>
 
-</center> 
+    <label>Participant 1 Name:</label>
+    <input type="text" id="name1" placeholder="Enter Name" required>
+
+    <label>Participant 2 Name:</label>
+    <input type="text" id="name2" placeholder="Enter Name" required>
+
+    <label>Participant 2 Profile Picture:</label>
+    <input type="file" id="profilePic" accept="image/*">
+
+    <label>Custom Message Time (HH:MM):</label>
+    <input type="time" id="customTime" required>
+</div>
+
+<div id="chatArea" class="chat-area">
+    <div id="chatHeader" class="chat-header">
+        <img id="participant2Dp" src="" alt="Participant 2" class="dp">
+        <div class="header-info">
+            <span id="participant2Name" class="name"></span>
+            <span id="status" class="status">last seen at 12:34</span>
+        </div>
+    </div>
+</div>
+
+<div class="message-inputs">
+    <label for="message1">Message from <span id="name1Display">Participant 1</span>:</label>
+    <input type="text" id="message1" placeholder="Type a message...">
+    <button onclick="sendMessage('participant1')">Send</button>
+
+    <label for="message2">Message from <span id="name2Display">Participant 2</span>:</label>
+    <input type="text" id="message2" placeholder="Type a message...">
+    <button onclick="sendMessage('participant2')">Send</button>
+</div>
+<br>
+<button onclick="downloadChatAsImage()">Download Chat as PNG</button>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+.chat-generator {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    max-width: 100%;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #075e54;
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+.dp {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.header-info .name {
+    font-weight: bold;
+}
+
+.header-info .status {
+    font-size: 0.75em;
+    color: lightgray;
+    display: block;
+}
+
+.chat-area {
+    max-width: 100%;
+    background-color: #e5ddd5;
+    padding: 5px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+    max-height: 400px; /* Limit height to make scrolling manageable */
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9em;
+}
+
+.chat-message {
+    margin: 3px 0;
+    padding: 5px 10px;
+    border-radius: 8px;
+    max-width: 75%;
+}
+
+.sent {
+    background-color: #dcf8c6;
+    margin-left: auto;
+    text-align: right;
+}
+
+.received {
+    background-color: #fff;
+    margin-right: auto;
+}
+
+.time-stamp {
+    font-size: 0.7em;
+    color: gray;
+    margin-top: 2px;
+}
+
+.tick {
+    font-size: 0.7em;
+    margin-left: 2px;
+}
+
+.tick.read {
+    color: #34b7f1;
+}
+
+.message-inputs {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-inputs input {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.message-inputs button {
+    align-self: flex-start;
+    padding: 5px 10px;
+    background-color: #25d366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button {
+    padding: 8px 12px;
+    background-color: #25d366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+document.getElementById("name1Display").innerText = document.getElementById("name1").value || "Participant 1";
+document.getElementById("name2Display").innerText = document.getElementById("name2").value || "Participant 2";
+
+function loadProfilePicture() {
+    const profilePic = document.getElementById("profilePic").files[0];
+    if (profilePic) {
+        const reader = new FileReader();
+        reader.onload = (e) => { document.getElementById("participant2Dp").src = e.target.result; };
+        reader.readAsDataURL(profilePic);
+    }
+    document.getElementById("participant2Name").innerText = document.getElementById("name2").value;
+}
+
+document.getElementById("profilePic").addEventListener("change", loadProfilePicture);
+
+function setStatus() {
+    const customTime = document.getElementById("customTime").value;
+    const statusElem = document.getElementById("status");
+    statusElem.innerText = `last seen at ${customTime}`;
+}
+
+function sendMessage(participant) {
+    const chatArea = document.getElementById("chatArea");
+    const customTime = document.getElementById("customTime").value || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    let messageText = "";
+    let isSent = false;
+    if (participant === 'participant1') {
+        messageText = document.getElementById("message1").value;
+        isSent = true;
+        setStatus();
+    } else {
+        messageText = document.getElementById("message2").value;
+        isSent = false;
+    }
+
+    if (messageText.trim() === "") return;
+
+    const message = document.createElement("div");
+    message.className = `chat-message ${isSent ? 'sent' : 'received'}`;
+
+    const messageTextElem = document.createElement("span");
+    messageTextElem.className = "message-text";
+    messageTextElem.innerText = messageText;
+    message.appendChild(messageTextElem);
+
+    const timeStamp = document.createElement("div");
+    timeStamp.className = "time-stamp";
+    timeStamp.innerText = customTime;
+
+    if (isSent) {
+        const tick = document.createElement("span");
+        tick.className = "tick";
+        tick.innerHTML = "&#10003;&#10003;";
+        tick.classList.add("read");
+        timeStamp.appendChild(tick);
+    }
+
+    message.appendChild(timeStamp);
+    chatArea.appendChild(message);
+
+    document.getElementById(isSent ? "message1" : "message2").value = "";
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function downloadChatAsImage() {
+    const chatArea = document.getElementById("chatArea");
+
+    // Ensure the chat area is tall enough to capture all messages
+    chatArea.style.height = 'auto';
+
+    html2canvas(chatArea, {
+        scrollY: -window.scrollY,
+        useCORS: true,
+        scale: 2 // Increase the resolution of the download for clarity
+    }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "chat.png";
+        link.href = canvas.toDataURL();
+        link.click();
+
+        // Revert height after download
+        chatArea.style.height = '';
+    });
+}
+</script>
+<div class="article">
+<style>
+h1, h2, p, h3, h4 {
+  margin: 15px;
+}
+</style>
+<h1>Fake WhatsApp Chat Generator: A Complete Guide</h1>
+<p>Nowadays, creative tools are needed for content creation and marketing on social media. Fake WhatsApp Chat Generator is a powerful tool that allows you to generate realistic WhatsApp chats. In this article, we will discuss the features, benefits, and use cases of this tool, so that you can use it for your content creation or educational purposes.</p>
+<p><br></p>
+<h2>1. What is Fake WhatsApp Chat Generator?</h2>
+<p>Fake WhatsApp Chat Generator is a web-based tool that allows users to create fake WhatsApp conversations. With the help of this tool, you can generate customized chats that look exactly like real WhatsApp chats. This tool is very useful for content creators, educators, and entertainers.</p>
+<p><br></p>
+<h3>2. Key Features of the Tool</h3>
+<h4>Some of the special features of this tool are:</h4>
+<p><br></p>
+<ul>
+    <li><strong>User Input:</strong> Users can input participant&apos;s name, chat theme (such as friendship, romance, or customer support), and number of messages.</li>
+</ul>
+<p><br></p>
+<ul>
+    <li><strong>Message Generation:&nbsp;</strong>This tool generates random messages based on the selected theme and participant&apos;s name.</li>
+</ul>
+<p><br></p>
+<ul>
+    <li><strong>Customization:</strong> Users can select font style, size, and color. Background image or color can also be customized.</li>
+</ul>
+<p><br></p>
+<ul>
+    <li><strong>Output Options:</strong> You can embed the generated chat as HTML code, or download it as an image or PDF.</li>
+</ul>
+<p><br></p>
+<h3>3. Benefits of this tool</h3>
+<ul>
+    <li><strong>Content Creation:</strong> Content creators can generate funny or creative WhatsApp conversations for their blogs or social media posts.</li>
+    <li><strong>Education:</strong> Teachers and trainers can use this tool to create simulated conversations, which are useful for educational purposes.</li>
+    <li><strong>Entertainment:</strong> This tool can be used to share entertaining content on social media.</li>
+</ul>
+<h3>4. How does Fake WhatsApp Chat Generator work?</h3>
+<h4>To use the tool, users have to follow some simple steps:</h4>
+<p><br></p>
+<ul>
+    <li><strong>Input Form:&nbsp;</strong>First, users have to select the participant&apos;s name and chat theme.</li>
+    <li><strong>Message Generation:&nbsp;</strong>Then, users have to specify the number of messages, and the tool automatically generates messages.</li>
+    <li><strong>Customization:</strong> Users can customize the chat interface, such as fonts, colors, and backgrounds.</li>
+    <li><strong>Output:</strong> Finally, users can download or share the generated chat.</li>
+</ul>
+<h3>5. SEO Tips for Using Fake WhatsApp Chat Generator</h3>
+<ul>
+    <li><strong>Keywords:</strong> Use keywords related to the use of this tool, such as &quot;Fake WhatsApp Chat&quot;, &quot;WhatsApp Chat Generator&quot;, and &quot;Chat Simulation Tool&quot; in your articles.</li>
+    <li><strong>Content Optimization:</strong> Make your content well-structured and engaging so that it ranks easily in search engines.</li>
+    <li><strong>Social Sharing:</strong> Share your generated chats on social media platforms so that more and more people can take advantage of this tool.</li>
+</ul>
+<p><br></p>
+<h2>6. Conclusion</h2>
+<p>Fake WhatsApp Chat Generator is a versatile tool that brings a new color to content creation and education in today&apos;s digital world. With this, you can easily visualize your creative ideas and create entertaining content. Use this tool today and see how you can make your projects even more engaging!</p>
+<p><br></p>
+<p>Hope you liked this article. If you need more information about this tool, then you can ask your questions in the comments below!</p><br>
+<blockquote>
+    <p style="text-align: left;"><strong>Read More</strong></p>
+    <p style="text-align: left;"><a href="Fake-Tweet.html">Fake Tweets Generator</a></p>
+    <p style="text-align: left;"><a href="lenny-face.html">Lenny Face Generator</a></p>
+    <p style="text-align: left;"><a href="counter-sentences.html">Counter Sentences</a></p>
+</blockquote>
+</div>
+
 </body>
  <script src="script.js"></script>
 <!-- Footer Section -->
