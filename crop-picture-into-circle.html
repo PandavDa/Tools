@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description" content="An advanced circular image cropping tool. Crop, resize, zoom, pan, apply filters, and download your cropped images in high-quality formats. User-friendly and mobile-responsive.">
+  <meta name="keywords" content="image cropper, circular crop, crop images online, image editing tool, resize image, zoom, pan, download cropped images, image filters, responsive image tool">
+    <title>Image Crop Intu Circle - Tools Pandav Da</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+   <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLQIYksL2jvxLpy5o25w1YNFNmgXXxDk90AdoxNVTHA8CdPGOnMXE_z-lIR3qshuUAor_VPTUQeJalBo3aTOShWJ-rV088iCBZUiMy_r_lBCq7CZREqN31q-YsYPkyUcqYGbPzWo8-pcyjn2MUe6SpEJrW0AzvuZRKeYKOjEPqIX1Lj1vok_DDz0-Focv8/s1600/tools-pandavda-logo.webp" type="image/webp" sizes="16x16">
+</head>
+    <header>
+        <!-- Logo and Site Title -->
+        <div class="logo-title">
+            <img src="tools-pandavda-logo.webp" alt="Tools Pandav Da" class="logo-img">
+            <span class="site-title"><a href="index.htnl">Tools Pandav Da</a></span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="index.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+    </header>
+<body>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .file-upload {
+      margin-bottom: 20px;
+    }
+
+    .file-upload label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .file-upload input {
+      display: none;
+    }
+
+    .image-container {
+      margin-top: 20px;
+      position: relative;
+      max-width: 100%;
+    }
+
+    .preview-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    canvas {
+      display: block;
+      margin: 10px auto;
+      border: 2px solid #007bff;
+      border-radius: 50%;
+    }
+
+    .controls {
+      margin: 20px 0;
+    }
+
+    .controls button {
+      padding: 10px 15px;
+      margin: 5px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .controls button:hover {
+      background-color: #218838;
+    }
+
+    .filter-controls {
+      margin: 10px 0;
+    }
+
+    .filter-controls button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 14px;
+    }
+    h1, h2, h3, h4, ol, li, p {
+  margin: 20px;
+
+}
+  </style>
+
+<body>
+  <div class="container">
+    <h1>Advanced Circular Cropping Tool</h1>
+
+    <div class="file-upload">
+      <label for="file-input">Upload Image</label>
+      <input type="file" id="file-input" accept="image/*">
+    </div>
+
+    <div class="image-container">
+      <img id="image" src="" alt="Upload an image to crop" style="max-width: 100%; display: none;">
+    </div>
+
+    <div class="controls">
+      <button id="crop-button">Crop</button>
+      <button id="reset-button">Reset</button>
+      <button id="download-button" style="display: none;">Download</button>
+    </div>
+
+    <div class="filter-controls">
+      <button id="grayscale-button">Grayscale</button>
+      <button id="sepia-button">Sepia</button>
+      <button id="reset-filters-button">Reset Filters</button>
+    </div>
+
+    <div class="preview-container">
+      <h2>Cropped Preview</h2>
+      <canvas id="circle-preview" width="300" height="300" style="display: none;"></canvas>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script>
+    const fileInput = document.getElementById('file-input');
+    const image = document.getElementById('image');
+    const cropButton = document.getElementById('crop-button');
+    const resetButton = document.getElementById('reset-button');
+    const downloadButton = document.getElementById('download-button');
+    const circlePreview = document.getElementById('circle-preview');
+    const ctx = circlePreview.getContext('2d');
+
+    const grayscaleButton = document.getElementById('grayscale-button');
+    const sepiaButton = document.getElementById('sepia-button');
+    const resetFiltersButton = document.getElementById('reset-filters-button');
+
+    let cropper;
+
+    // Handle file input
+    fileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        image.src = e.target.result;
+        image.style.display = 'block';
+        if (cropper) {
+          cropper.destroy();
+        }
+        cropper = new Cropper(image, {
+          aspectRatio: 1,
+          viewMode: 1,
+          autoCropArea: 1,
+          cropBoxResizable: true,
+          dragMode: 'move'
+        });
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Handle cropping
+    cropButton.addEventListener('click', () => {
+      if (!cropper) return;
+
+      const croppedCanvas = cropper.getCroppedCanvas({
+        width: 300,
+        height: 300,
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: 'high',
+      });
+
+      ctx.clearRect(0, 0, circlePreview.width, circlePreview.height);
+      ctx.beginPath();
+      ctx.arc(150, 150, 150, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+      ctx.drawImage(croppedCanvas, 0, 0, 300, 300);
+      circlePreview.style.display = 'block';
+
+      downloadButton.style.display = 'inline-block';
+    });
+
+    // Reset cropping
+    resetButton.addEventListener('click', () => {
+      if (cropper) {
+        cropper.reset();
+      }
+      ctx.clearRect(0, 0, circlePreview.width, circlePreview.height);
+      circlePreview.style.display = 'none';
+      downloadButton.style.display = 'none';
+    });
+
+    // Download cropped image
+    downloadButton.addEventListener('click', () => {
+      circlePreview.toBlob((blob) => {
+        saveAs(blob, 'cropped-circle-image.png');
+      });
+    });
+
+    // Apply filters
+    grayscaleButton.addEventListener('click', () => {
+      if (cropper) cropper.getCroppedCanvas().style.filter = 'grayscale(100%)';
+    });
+
+    sepiaButton.addEventListener('click', () => {
+      if (cropper) cropper.getCroppedCanvas().style.filter = 'sepia(100%)';
+    });
+
+    resetFiltersButton.addEventListener('click', () => {
+      if (cropper) cropper.getCroppedCanvas().style.filter = 'none';
+    });
+  </script>
+</body>
+<!--Article-->
+  <h1>Crop Picture Into a Circle Tool &ndash; A Complete Guide</h1>
+<p>In today&rsquo;s digital era, everyone uses image editing tools. But when it comes to &ldquo;crop picture into a circle&rdquo;, most people are looking for a user-friendly and efficient tool. In this article, we will tell you about a tool that is not only easy, but also provides high-quality and customizable cropping options. You can use it on mobile or desktop, without any hassle.</p>
+<p><br></p>
+<h2>What is Crop Picture into a Circle Tool?</h2>
+<p>This is an advanced online tool that allows you to crop any image in a circular shape. With the help of this tool, you can give a professional touch to your photos, whether it is for a profile picture or for a design project.</p>
+<p>The biggest benefit of this tool is that you can:</p>
+<ol>
+    <li>Zoom and pan the image.</li>
+    <li>Apply filters (such as grayscale, sepia).</li>
+    <li>Download the cropped image in PNG, JPEG or WebP format.</li>
+</ol>
+<p>This tool is perfect for both beginners and professionals!</p>
+<p><br></p>
+<h2>Features of Circular Cropping Tool</h2>
+<h3>1. Circular Cropping</h3>
+<p>The primary feature of this tool is to crop any image in a circular shape. In just a few clicks, you can adjust your photo in a perfect circle. This feature is quite popular for creating profile pictures, logos and banners.</p>
+<p><br></p>
+<h3>2. Zoom and Pan Controls</h3>
+<p>You can increase or decrease the size of your image to fit it exactly accurately. With the drag-and-drop functionality, you can move the image up, down, or both sides.</p>
+<p><br></p>
+<h3>3. Filters for Enhanced Images</h3>
+<p>This tool has built-in filters, which make your image more attractive:</p>
+<ul>
+    <li><strong>Grayscale:</strong> Black-and-white effect.</li>
+    <li><strong>Sepia: </strong>Vintage tone effect.</li>
+    <li><strong>Reset Filters:</strong> Option to go back to the original look.</li>
+    <li><br></li>
+</ul>
+<h3>4. Aspect Ratio Options</h3>
+<p>You can use predefined aspect ratios, such as 1:1, 4:3, and 16:9, for cropping according to your needs.</p>
+<p><br></p>
+<h3>5. Real-Time Crop Preview</h3>
+<p>When you crop, you get a live preview in which you can see the final look of your cropped image. This lets you know what the end result will look like.</p>
+<p><br></p>
+<h3>6. Download Options</h3>
+<p>You can download your cropped image in high-quality formats:</p>
+<ul>
+    <li><strong>PNG:</strong> Best for transparent backgrounds.</li>
+    <li><strong>JPEG: </strong>Compressed for size and compatibility.</li>
+    <li><strong>WebP:</strong> Advanced format that keeps the size small without compromising the quality.</li>
+</ul>
+<p><br></p>
+<h2>How to Use This Tool to Crop a Picture into a Circle?</h2>
+<p>This tool is very simple to use. Just follow the steps given below:</p>
+<h3><strong>Step 1: Upload Image</strong></h3>
+<ul>
+    <li>Click on the tool and upload an image from your device. It supports JPEG, PNG, and WebP formats.</li>
+</ul>
+<p><br></p>
+<h3>Step 2: Adjust Image</h3>
+<ul>
+    <li>Move your image using the Drag and Pan controls.</li>
+    <li>Adjust the size of the image using the Zoom in and Zoom out buttons.</li>
+</ul>
+<p><br></p>
+<h3>Step 3: Apply Filters (Optional)</h3>
+<ul>
+    <li>Make your image look more attractive by using Grayscale or Sepia filters. If you don&rsquo;t like the changes, use the &ldquo;Reset Filters&rdquo; button.</li>
+</ul>
+<p><br></p>
+<h3>Step 4: Crop</h3>
+<ul>
+    <li>Set the image inside the circular crop boundary. When you are satisfied, click on the &ldquo;Crop&rdquo; button.</li>
+</ul>
+<p><br></p>
+<h3>Step 5: Download</h3>
+<ul>
+    <li>Preview the cropped image and save it to your device by clicking on the &ldquo;Download&rdquo; button.</li>
+</ul>
+<p><br></p>
+<h2>Benefits of Circular Crop Tool</h2>
+<ol>
+    <li><strong>User-Friendly:</strong> This tool is so easy that anyone can use it without any technical knowledge.</li>
+    <li><strong>Mobile-Friendly: </strong>You can use it seamlessly on your mobile or tablet.</li>
+    <li><strong>Customizable Options:</strong> Filters, zooming, and aspect ratio options make this tool ideal for all types of users.</li>
+    <li><strong>Free to Use:&nbsp;</strong>You do not need to make any subscription or payment to use this tool.</li>
+    <li><strong>No Watermarks:&nbsp;</strong>There will be no unwanted watermark on the cropped image, which makes it professional and clean.</li>
+</ol>
+<p><br></p>
+<p><strong>Common Use Cases:</strong>&nbsp;</p>
+<ol>
+    <li><strong>Profile Pictures:</strong> Create perfect circular profile pictures for social media platforms like Instagram, Facebook and LinkedIn.</li>
+    <li><strong>Designing Logos:</strong> Ideal for creating circular logos for businesses.</li>
+    <li><strong>Presentations and Banners:</strong> Create professional images for creative content.</li>
+    <li><strong>Personal Projects:</strong> Create aesthetic and unique images for your hobbies.</li>
+</ol>
+<p><br></p>
+<h2>Frequently Asked Questions</h2>
+<h4><strong>1. Will this tool work on mobile devices?</strong></h4>
+<p>Yes, this tool is mobile-responsive and works in any browser.</p>
+<p><br></p>
+<h4>2. Can I download the image with a transparent background?</h4>
+<p>Of course, you can download the image in a transparent background by choosing PNG format.</p>
+<p><br></p>
+<h4>3. Will I get a watermark after cropping?</h4>
+<p>No, you will get watermark-free cropped images with this tool.</p>
+<p><br></p>
+<h4>4. Is this tool free?</h4>
+<p>Yes, it is 100% free and there are no hidden charges for using it.</p>
+<p><br></p>
+<p>SEO Optimized Keywords for Better Results</p>
+<p>Crop picture into a circle online</p>
+<p>Circular image cropping tool</p>
+<p>Online circular crop editor</p>
+<p>Image crop for profile picture</p>
+<p>Crop images without watermark</p>
+<p>Free circular crop tool</p>
+<p>Circular cropping for social media</p>
+<h2><strong>Conclusion</strong></h2>
+<p>Nowadays everyone needs a simple and effective tool that gives high-quality results. This &quot;Crop Picture into a Circle Tool&quot; will give you the experience of professional and hassle-free image cropping. Try it now to give a unique touch to your photos and download high-quality cropped images!</p>
+<p><br></p>
+<p>Start Editing Now!</p>
+<!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="portfolio.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="our-services.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="index.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="about.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="privacy-policy.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Privacy and Policy</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="contact.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-reddit" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 Tools Pandav Da. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+</footer>
+
+  <script src="script.js"></script>
+</html>
