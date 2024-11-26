@@ -143,35 +143,7 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
     </header>
   
 <body>
- <script>
-// Select elements
-const mlInput = document.getElementById("ml-input");
-const resultDiv = document.getElementById("result");
-const ozOutput = document.getElementById("oz-output");
-
-// Conversion Logic
-function convertMlToOz() {
-    const milliliters = parseFloat(mlInput.value);
-    
-    // Clear output if input is invalid or empty
-    if (isNaN(milliliters) || milliliters <= 0) {
-        ozOutput.textContent = "--"; // Reset output
-        resultDiv.classList.add("hidden");
-        return;
-    }
-
-    // Conversion formula
-    const ounces = (milliliters / 29.5735).toFixed(2);
-
-    // Display result
-    ozOutput.textContent = ounces;
-    resultDiv.classList.remove("hidden");
-}
-
-// Event Listener for real-time conversion
-mlInput.addEventListener("input", convertMlToOz);
-
-</script>
+<div class="body">
 <div class="converter-container">
     <h1>Milliliters to Ounces Converter</h1>
     <div class="input-group">
@@ -184,8 +156,6 @@ mlInput.addEventListener("input", convertMlToOz);
         </p>
     </div>
 </div>
-
-
 <style>
 /* General Styling */
 body {
@@ -275,7 +245,35 @@ body {
 }
 
 </style>
+ <script>
+// Select elements
+const mlInput = document.getElementById("ml-input");
+const resultDiv = document.getElementById("result");
+const ozOutput = document.getElementById("oz-output");
 
+// Conversion Logic
+function convertMlToOz() {
+    const milliliters = parseFloat(mlInput.value);
+    
+    // Clear output if input is invalid or empty
+    if (isNaN(milliliters) || milliliters <= 0) {
+        ozOutput.textContent = "--"; // Reset output
+        resultDiv.classList.add("hidden");
+        return;
+    }
+
+    // Conversion formula
+    const ounces = (milliliters / 29.5735).toFixed(2);
+
+    // Display result
+    ozOutput.textContent = ounces;
+    resultDiv.classList.remove("hidden");
+}
+
+// Event Listener for real-time conversion
+mlInput.addEventListener("input", convertMlToOz);
+</script>
+</div>
 </body>
 <!-- Footer Section -->
 <footer style="
