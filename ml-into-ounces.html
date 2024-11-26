@@ -144,124 +144,97 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
   
 <body>
 <div class="body">
-<div class="converter-container">
+<center><div class="converter-container">
     <h1>Milliliters to Ounces Converter</h1>
     <div class="input-group">
-        <label for="ml-input">Enter Milliliters:</label>
-        <input type="number" id="ml-input" placeholder="e.g., 250" />
+        <label for="ml-input">Milliliters:</label>
+        <input type="number" id="ml-input" placeholder="Enter milliliters" />
     </div>
     <div class="output-group">
-        <p id="result" class="output-text hidden">
-            Auto-Converted: <span id="oz-output">--</span> ounces
-        </p>
+        <p id="result">Ounces: <span id="oz-output">--</span></p>
     </div>
-</div>
+</div></center>
 <style>
 /* General Styling */
 
+
 /* Container */
 .converter-container {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 30px;
-    width: 350px;
+    background: #8B1DFF;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
     text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Heading */
 .converter-container h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #FEFEFA;
 }
 
 /* Input Group */
-.input-group {
-    margin-bottom: 20px;
-}
-
 .input-group label {
     display: block;
-    font-size: 16px;
     margin-bottom: 8px;
+    font-size: 14px;
+    color: #BADCE8;
 }
 
 .input-group input {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     outline: none;
-    transition: 0.3s;
+    transition: border-color 0.2s;
 }
 
 .input-group input:focus {
-    border-color: #6a11cb;
-    background: rgba(255, 255, 255, 0.3);
+    border-color: #BADCE8;
 }
 
 /* Output Group */
 .output-group {
-    margin-top: 20px;
-}
-
-.output-text {
-    font-size: 18px;
-    font-weight: bold;
-    opacity: 1;
-    transition: opacity 0.3s;
-}
-
-.hidden {
-    opacity: 0;
-    visibility: hidden;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #BADCE8;
 }
 
 #result span {
-    color: #ffeb3b;
     font-weight: bold;
+    color: #FF73DC;
 }
-
-/* Responsive Design */
-@media (max-width: 400px) {
-    .converter-container {
-        width: 90%;
-        padding: 20px;
-    }
-}
-
 </style>
- <script>
+<script>
 // Select elements
 const mlInput = document.getElementById("ml-input");
-const resultDiv = document.getElementById("result");
 const ozOutput = document.getElementById("oz-output");
 
 // Conversion Logic
 function convertMlToOz() {
     const milliliters = parseFloat(mlInput.value);
-    
-    // Clear output if input is invalid or empty
+
+    // Validation: Show "--" if input is invalid
     if (isNaN(milliliters) || milliliters <= 0) {
-        ozOutput.textContent = "--"; // Reset output
-        resultDiv.classList.add("hidden");
+        ozOutput.textContent = "--";
         return;
     }
 
     // Conversion formula
     const ounces = (milliliters / 29.5735).toFixed(2);
 
-    // Display result
+    // Update output
     ozOutput.textContent = ounces;
-    resultDiv.classList.remove("hidden");
 }
 
 // Event Listener for real-time conversion
 mlInput.addEventListener("input", convertMlToOz);
+
 </script>
 </div>
 </body>
