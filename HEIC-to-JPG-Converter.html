@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Use our HEIC to JPG Converter to easily convert HEIC files to JPG format for free. Fast, simple, and high-quality conversion." />
+    <title>HEIC to JPG Converter: Fast & Easy Image Conversion for Free</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLQIYksL2jvxLpy5o25w1YNFNmgXXxDk90AdoxNVTHA8CdPGOnMXE_z-lIR3qshuUAor_VPTUQeJalBo3aTOShWJ-rV088iCBZUiMy_r_lBCq7CZREqN31q-YsYPkyUcqYGbPzWo8-pcyjn2MUe6SpEJrW0AzvuZRKeYKOjEPqIX1Lj1vok_DDz0-Focv8/s1600/tools-pandavda-logo.webp" type="image/webp" sizes="16x16">
+</head>
+    <header>
+        <!-- Logo and Site Title -->
+        <div class="logo-title">
+            <img src="tools-pandavda-logo.webp" alt="Tools Pandav Da" class="logo-img">
+            <span class="site-title"><a href="index.html">Tools Pandav Da</a></span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="index.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+    </header>
+  
+<body>
+
+<!-- Container -->
+<div class="converter-container">
+  <h1>HEIC to JPG Converter</h1>
+  <div class="upload-section">
+    <label for="heic-upload" class="upload-label">
+      <span>📁 Choose HEIC File</span>
+      <input id="heic-upload" type="file" accept=".heic" hidden>
+    </label>
+    <p class="upload-hint">Supports single HEIC image uploads</p>
+  </div>
+  <div class="preview-section">
+    <img id="image-preview" alt="Preview" hidden>
+  </div>
+  <button id="convert-btn" disabled>Convert to JPG</button>
+  <div id="download-section" hidden>
+    <a id="download-link" class="download-button" download="converted-image.jpg">Download JPG</a>
+  </div>
+  <p id="error-message" class="error-message" hidden></p>
+</div>
+
+<!-- Styles -->
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  .converter-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #e6f7ff, #b3e0ff);
+    border-radius: 15px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  .upload-section {
+    margin-bottom: 20px;
+  }
+
+  .upload-label {
+    display: inline-block;
+    background: #fff;
+    padding: 10px 15px;
+    color: #333;
+    border: 2px solid #b3e0ff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .upload-label:hover {
+    background: #d9f7ff;
+  }
+
+  .upload-hint {
+    font-size: 12px;
+    color: #555;
+    margin-top: 5px;
+  }
+
+  .preview-section {
+    margin: 20px 0;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  button {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+  }
+
+  button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  button:hover:enabled {
+    background: #555;
+  }
+
+  .download-button {
+    display: inline-block;
+    background: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.3s;
+  }
+
+  .download-button:hover {
+    background: #45a049;
+  }
+
+  .error-message {
+    color: #e53935;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 600px) {
+    .converter-container {
+      padding: 15px;
+    }
+
+    h1 {
+      font-size: 20px;
+    }
+
+    button, .download-button {
+      padding: 10px 15px;
+    }
+  }
+</style>
+
+<!-- Script -->
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.3/dist/heic2any.min.js"></script>
+<script>
+  document.getElementById("heic-upload").addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    const errorMessage = document.getElementById("error-message");
+    errorMessage.hidden = true;
+
+    if (file) {
+      const preview = document.getElementById("image-preview");
+      const convertBtn = document.getElementById("convert-btn");
+
+      // Display preview
+      const blobUrl = URL.createObjectURL(file);
+      preview.src = blobUrl;
+      preview.hidden = false;
+
+      // Enable conversion button
+      convertBtn.disabled = false;
+    }
+  });
+
+  document.getElementById("convert-btn").addEventListener("click", async () => {
+    const inputFile = document.getElementById("heic-upload").files[0];
+    const errorMessage = document.getElementById("error-message");
+
+    if (!inputFile) return;
+
+    try {
+      // Convert HEIC file to JPG
+      const result = await heic2any({ blob: inputFile, toType: "image/jpeg" });
+
+      // Create a downloadable JPG link
+      const jpgBlob = new Blob([result], { type: "image/jpeg" });
+      const jpgUrl = URL.createObjectURL(jpgBlob);
+
+      const downloadLink = document.getElementById("download-link");
+      downloadLink.href = jpgUrl;
+
+      document.getElementById("download-section").hidden = false;
+    } catch (error) {
+      // Handle conversion errors
+      errorMessage.textContent = "Error: " + (error.message || "Failed to convert HEIC file.");
+      errorMessage.hidden = false;
+    }
+  });
+</script>
+
+
+<div class="article">
+    <style>
+h1, h2, h3, p, ul, ol, li  {
+  margin: 20px;
+
+}
+  </style>
+<h1>HEIC to JPG Converter: Your Ultimate Solution for Easy Image Conversion</h1>
+<p>Today, iPhone and iPad users have to face a common issue, that is HEIC (High Efficiency Image Coding) format. Photos on Apple devices are stored in HEIC format, which is known for high quality and compressed size. But the problem is that HEIC files do not open on every device, like Windows PC or Android phones. If you are also facing this problem, then HEIC to JPG Converter tool can be the best solution for you!</p>
+<br>
+<img src="HEIC-to-JPG-Converter.webp" alt="HEIC to JPG Converter, heic to jpg converter free, heic to jpg converter download, heic to jpg converter software, heic to jpg converter windows, how to convert multiple heic to jpg"  title="HEIC to JPG Converter" style="margin: 0 auto; display: block; ">
+<br>
+<p>In this article, we will tell you in detail about HEIC to JPG Converter. This will explain to you how you can convert your HEIC images to JPG format using this tool without any complication.</p>
+<p><br></p>
+<h2>What is HEIC File Format?</h2>
+<p>HEIC is an advanced image format that Apple introduced with its iOS 11 update. Its main purpose is to compress images in high quality so that their size is reduced. The HEIC format is quite efficient, but it is only supported on Apple devices. If you want to view the HEIC file on Windows, Android or any other device, you will have to convert it.</p>
+<p>This is where the role of the HEIC to JPG Converter tool comes into play. JPG is a widely supported and universal image format that can be easily opened on every device and platform. You need to convert HEIC images to JPG format when you want to view them on another device or platform.</p>
+<p><br></p>
+<h3>Benefits of HEIC to JPG Converter Tool</h3>
+<p>There are many benefits of using HEIC to JPG Converter tool. It is very easy to use this tool and you get high-quality JPG images. Here we are telling some key benefits:</p>
+<p><br></p>
+<ol>
+    <li><strong>Free Tool:</strong> You do not need to purchase any type of software for HEIC to JPG conversion. This tool is absolutely free!</li>
+    <li><strong>High-Quality Conversion:&nbsp;</strong>While converting your HEIC files to JPG, their quality remains absolutely intact.</li>
+    <li><strong>Quick Conversion:&nbsp;</strong>This tool is fast, it takes you just a few seconds to convert your HEIC files to JPG format.</li>
+    <li><strong>No Installation Required:</strong> This is a web-based tool, which means you do not need to download any software.</li>
+    <li><strong>User-Friendly Interface:</strong> The interface of the tool is simple and easy-to-use, so you can easily convert HEIC files to JPG without any technical knowledge.</li>
+</ol>
+<p><br></p>
+<h3>How to Use HEIC to JPG Converter Tool</h3>
+<p>It is very simple to use HEIC to JPG Converter Tool. You just have to follow the steps given below:</p>
+<ol>
+    <li><strong>Upload HEIC File:</strong> First of all, select the HEIC file from your device which you want to convert.</li>
+    <li><strong>Convert in JPG Format:&nbsp;</strong>After uploading the file, you have to click on the convert button. The tool will automatically convert your HEIC image to JPG format.</li>
+    <li><strong>Download JPG File:&nbsp;</strong>After the conversion is complete, you will get a download link. You can download your JPG file by clicking on that link.</li>
+</ol>
+<p>In this process, you have to follow only 3 simple steps and your HEIC file is ready in JPG format.</p>
+<p><br></p>
+<h2>HEIC to JPG Converter Free: Is This Tool Free?</h2>
+<p>Yes, HEIC to JPG Converter tool is absolutely free. You can use this tool without any charge. You can convert as many HEIC images to JPG format as you want. This tool being free is a great advantage because you do not have to pay for any software.</p>
+<p><br></p>
+<h2>HEIC to JPG Converter Download: Do you need to download this tool?</h2>
+<p>You do not need to download HEIC to JPG Converter tool. This is a web-based tool that works directly in your browser. You just need an internet connection. This means that you can use this tool on any device, be it Windows, Mac, or mobile.</p>
+<p><br></p>
+<h2>HEIC to JPG Converter Software: Is This Software Available?</h2>
+<p>You do not need to install any heavy software to use this tool. This is an online tool that works directly on your browser. Therefore, you do not have to worry about any installation while using this tool.</p>
+<p><br></p>
+<h2>HEIC to JPG Converter for Windows: How to Use it on Windows?</h2>
+<p>If you are a Windows user, you can easily use the HEIC to JPG Converter tool. You just have to open your browser and go to the tool website. This tool works seamlessly in any Windows browser, like Google Chrome, Mozilla Firefox, or Microsoft Edge.</p>
+<p><br></p>
+<h3>Steps:</h3>
+<ol>
+    <li>Open your browser and go to the HEIC to JPG Converter website.</li>
+    <li>Select the HEIC file and press the conversion button.</li>
+    <li>Download the JPG file.</li>
+</ol>
+<p><br></p>
+<h2>How to Convert Multiple HEIC to JPG?</h2>
+<p>If you want to convert multiple HEIC files to JPG at once, you will have to find the option of multi-file conversion. Many HEIC to JPG Converter tools support multiple file conversions. You can convert multiple files by uploading them at the same time.</p>
+<p><br></p>
+<h3>Steps:</h3>
+<ol>
+    <li>Select all HEIC files.</li>
+    <li>Click on Convert button and wait for the conversion process to complete.</li>
+    <li>Download all JPG files at once.</li>
+</ol>
+<p>This feature will help you save time, especially when you have to convert a batch of images.</p>
+<p><br></p>
+<h2>Conclusion: Why Choose HEIC to JPG Converter?</h2>
+<p>HEIC to JPG Converter is a simple, free and effective solution to convert your HEIC images to JPG format. Its user-friendly interface, fast conversion process and high-quality output give you a perfect experience. All you have to do is upload your HEIC images, convert them, and download them &ndash; it&apos;s that simple!</p>
+<p>Now you can convert your HEIC files to JPG format without any problems whether you are using Windows, Mac, or mobile. Use this tool to convert your photos to a universally accessible format and share them easily!</p>
+<br>
+<blockquote>
+    <p style="text-align: left;"><strong>Read More</strong></p>
+    <p style="text-align: left;"><a href="/Fake-Chat.html">Fake WhatsApp Generator</a></p>
+    <p style="text-align: left;"><a href="/lenny-face.html">Lenny Face Generator</a></p>
+    <p style="text-align: left;"><a href="/counter-sentences.html">Counter Sentences</a></p>
+    <p style="text-align: left;"><a href="/HEIC-to-JPG-Converter.html">HEIC to JPG Converter</a></p>
+</blockquote><br>
+
+</body>
+<!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="about-me.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="portfolio.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="our-services.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="index.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="about.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="privacy-policy.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Privacy and Policy</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="contact.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="facebook.com/pandav.da" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://x.com/DaPandav" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://www.linkedin.com/in/pandavda/" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="instagram.com/pandav" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-reddit" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 Tools Pandav Da. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+</footer>
+
+  <script src="script.js"></script>
+</html>
