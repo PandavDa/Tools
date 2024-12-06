@@ -6,6 +6,7 @@
    <meta name="description" content="Easily crop your images into a perfect circle with our free online tool. Fast, simple, and ideal for social media, profiles, and more." />
     <title>Crop Image Into Circle Online - Easy & Free Tool</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLQIYksL2jvxLpy5o25w1YNFNmgXXxDk90AdoxNVTHA8CdPGOnMXE_z-lIR3qshuUAor_VPTUQeJalBo3aTOShWJ-rV088iCBZUiMy_r_lBCq7CZREqN31q-YsYPkyUcqYGbPzWo8-pcyjn2MUe6SpEJrW0AzvuZRKeYKOjEPqIX1Lj1vok_DDz0-Focv8/s1600/tools-pandavda-logo.webp" type="image/webp" sizes="16x16">
 </head>
@@ -143,7 +144,88 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
   
 <body>
 <!-- Container -->
- <div class="container">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .file-upload {
+      margin-bottom: 20px;
+    }
+
+    .file-upload label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .file-upload input {
+      display: none;
+    }
+
+    .image-container {
+      margin-top: 20px;
+      position: relative;
+      max-width: 100%;
+    }
+
+    .preview-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    canvas {
+      display: block;
+      margin: 10px auto;
+      border: 2px solid #007bff;
+      border-radius: 50%;
+    }
+
+    .controls {
+      margin: 20px 0;
+    }
+
+    .controls button {
+      padding: 10px 15px;
+      margin: 5px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .controls button:hover {
+      background-color: #218838;
+    }
+
+    .filter-controls {
+      margin: 10px 0;
+    }
+
+    .filter-controls button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 14px;
+    }
+  </style>
+
+
+  <div class="container">
     <h1>Advanced Circular Cropping Tool</h1>
 
     <div class="file-upload">
@@ -265,7 +347,10 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
       if (cropper) cropper.getCroppedCanvas().style.filter = 'none';
     });
   </script>
-</body>
+
+
+
+
 <!--Article-->
   <h1>Crop Picture Into a Circle Tool &ndash; A Complete Guide</h1>
 <p>In today&rsquo;s digital era, everyone uses image editing tools. But when it comes to &ldquo;crop picture into a circle&rdquo;, most people are looking for a user-friendly and efficient tool. In this article, we will tell you about a tool that is not only easy, but also provides high-quality and customizable cropping options. You can use it on mobile or desktop, without any hassle.</p>
