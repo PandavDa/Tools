@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore the Advanced Counter Sentences Tool - an essential writing tool that provides sentence, word, and character counts along with readability scores and grammar error detection. Perfect for writers, students, and professionals to improve content quality and structure.">
-    <title>Counter Sentences - Tools Pandav Da</title>
+    <meta name="description" content="Use our free online sentence counter tool to quickly and accurately count sentences in your text. Perfect for writers, editors, and students." />
+    <title>Sentence Counter Online - Count Sentences Instantly</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLQIYksL2jvxLpy5o25w1YNFNmgXXxDk90AdoxNVTHA8CdPGOnMXE_z-lIR3qshuUAor_VPTUQeJalBo3aTOShWJ-rV088iCBZUiMy_r_lBCq7CZREqN31q-YsYPkyUcqYGbPzWo8-pcyjn2MUe6SpEJrW0AzvuZRKeYKOjEPqIX1Lj1vok_DDz0-Focv8/s1600/tools-pandavda-logo.webp" type="image/webp" sizes="16x16">
 </head>
-
     <header>
         <!-- Logo and Site Title -->
-         <div class="logo-title">
+        <div class="logo-title">
             <img src="tools-pandavda-logo.webp" alt="Tools Pandav Da" class="logo-img">
-            <span class="site-title"><a href="index.html"><a href="index.html">Tools Pandav Da</a></span>
+            <span class="site-title"><a href="index.html">Tools Pandav Da</a></span>
         </div>
         <!-- Navigation Links -->
         <nav class="nav-links">
@@ -143,47 +142,72 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
     </header>
   
 <body>
-   <!-- JavaScript for Core and Advanced Functionalities -->
+<!-- Container -->
+<center>
+  <!-- JavaScript for Core and Advanced Functionalities -->
+<div style="display: flex; flex-direction: column; gap: 20px; padding: 20px; font-family: Arial, sans-serif; max-width: 1200px; margin: auto;">
+  <!-- Title -->
+  <h1 style="text-align: center; color: #2c3e50;">Advanced Counter Sentences Tool</h1>
+
+  <!-- Results Container -->
+  <div style="background-color: #ecf0f1; padding: 20px; border: 2px solid #ddd; border-radius: 8px; margin-bottom: 20px;">
+    <h2 style="color: #34495e;">Output Results</h2>
+    <p><strong>Sentence Count:</strong> <span id="sentenceCount" style="color: green; font-weight: bold;">0</span></p>
+    <p><strong>Word Count:</strong> <span id="wordCount" style="color: green; font-weight: bold;">0</span></p>
+    <p><strong>Character Count:</strong> <span id="charCount" style="color: green; font-weight: bold;">0</span></p>
+    <p><strong>Average Sentence Length:</strong> <span id="avgSentenceLength" style="color: green; font-weight: bold;">0</span></p>
+    <p><strong>Readability Score:</strong> <span id="readability" style="color: green; font-weight: bold;">N/A</span></p>
+    <p><strong>Errors:</strong> <span id="errors" style="color: green; font-weight: bold;">No errors detected</span></p>
+  </div>
+
+  <!-- Text Input Area -->
+  <div style="background-color: #f7f7f7; padding: 20px; border: 2px solid #ddd; border-radius: 8px;">
+    <h2 style="color: #34495e;">Type or Paste Your Text</h2>
+    <textarea 
+      id="textInput" 
+      placeholder="Enter your text here..." 
+      style="width: 100%; height: 300px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+    </textarea>
+  </div>
+
+  <!-- Clear Button -->
+  <button 
+    id="clearBtn" 
+    style="background-color: #e74c3c; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; align-self: center; margin-top: 20px;">
+    Clear Text
+  </button>
+</div>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const textarea = document.querySelector('#textInput');
+    const textInput = document.querySelector('#textInput');
     const sentenceCountDisplay = document.querySelector('#sentenceCount');
     const wordCountDisplay = document.querySelector('#wordCount');
     const charCountDisplay = document.querySelector('#charCount');
     const avgSentenceLengthDisplay = document.querySelector('#avgSentenceLength');
     const readabilityDisplay = document.querySelector('#readability');
     const errorsDisplay = document.querySelector('#errors');
-
-    textarea.addEventListener('input', updateTextStats);
+    const clearBtn = document.querySelector('#clearBtn');
 
     function updateTextStats() {
-      const text = textarea.value;
-
-      // Basic counts
+      const text = textInput.value;
       const sentences = text.match(/[^.!?]*[.!?]/g) || [];
       const words = text.match(/\b\w+\b/g) || [];
       const characters = text.replace(/\s/g, '');
 
-      // Calculating counts
       sentenceCountDisplay.textContent = sentences.length;
       wordCountDisplay.textContent = words.length;
       charCountDisplay.textContent = characters.length;
+      avgSentenceLengthDisplay.textContent = (words.length / sentences.length || 0).toFixed(2);
 
-      // Average Sentence Length
-      const avgSentenceLength = (words.length / sentences.length || 0).toFixed(2);
-      avgSentenceLengthDisplay.textContent = avgSentenceLength;
-
-      // Readability Metrics (Flesch-Kincaid)
       const syllableCount = countSyllables(words);
       const readability = calculateReadability(sentences.length, words.length, syllableCount);
       readabilityDisplay.textContent = readability;
 
-      // Error Detection (basic placeholder)
       const errors = detectErrors(text);
       errorsDisplay.innerHTML = errors.length > 0 ? errors.join('<br>') : "No errors detected";
     }
 
-    // Count syllables in words (estimate for readability)
     function countSyllables(words) {
       return words.reduce((syllables, word) => {
         word = word.toLowerCase();
@@ -193,68 +217,34 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
       }, 0);
     }
 
-    // Calculate Flesch-Kincaid Readability Score
     function calculateReadability(sentenceCount, wordCount, syllableCount) {
       if (sentenceCount === 0 || wordCount === 0) return "N/A";
       const fkScore = 206.835 - 1.015 * (wordCount / sentenceCount) - 84.6 * (syllableCount / wordCount);
       return fkScore.toFixed(2);
     }
 
-    // Basic error detection (placeholder for more advanced grammar check)
     function detectErrors(text) {
       const errors = [];
       if (!/[.!?]$/.test(text.trim())) errors.push("Missing punctuation at the end.");
-      if ((text.match(/[^A-Z].[A-Z]/g) || []).length) errors.push("Possible missing punctuation between sentences.");
       return errors;
     }
 
-    // Clear Text and Reset Counts
-    document.querySelector('#clearBtn').addEventListener('click', () => {
-      textarea.value = '';
+    clearBtn.addEventListener('click', () => {
+      textInput.value = '';
       updateTextStats();
     });
+
+    textInput.addEventListener('input', updateTextStats);
   });
 </script>
 
-<!-- HTML Structure for the User Interface -->
-<div>
-  <h1>Advanced Counter Sentences</h1>
-  
-  <textarea id="textInput" style="background-color: #0897fa; color: #fdfefe; padding: 100px 80px; border: none; border-radius: 4px; cursor: pointer;" placeholder="Type or paste your text here..."></textarea>
-
-  <!-- Paragraph Section -->
-  <p id="description">This tool analyzes your text to provide sentence, word, and character counts, along with readability scores and basic error detection.</p>
-
-  <!-- Display statistics -->
-  <div>
-    <div><span style="font-weight: bold; color: green;">Sentence Count:</span> <span id="sentenceCount">0</span></div>
-    <div><span style="font-weight: bold; color: green;">Word Count:</span> <span id="wordCount">0</span></div>
-    <div><span style="font-weight: bold; color: green;">Character Count:</span> <span id="charCount">0</span></div>
-    <div><span style="font-weight: bold; color: green;">Average Sentence Length:</span> <span id="avgSentenceLength">0</span></div>
-  </div>
-
-  <!-- Display readability -->
-  <div>
-    <div><span style="font-weight: bold; color: green;">Readability Score:</span> <span id="readability">N/A</span></div>
-  </div>
-
-  <!-- Display error detection -->
-  <div>
-    <div><span style="font-weight: bold; color: green;">Errors:</span></div>
-    <div id="errors">No errors detected</div>
-  </div>
-
-  <!-- Clear button with colorful style -->
-  <button id="clearBtn" style="background-color: #008080; color: #ffffff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Clear Text</button>
-</div>
-
-</body>
  <script src="script.js"></script>
+ </center>
     <!--article-->
 <style>
 Div {
  
- margin: 40px;
+ margin: 20px;
 }
 </style>
 <div class="article">
@@ -266,35 +256,35 @@ Div {
     </center></p>
 <h2>Tool Features</h2>
 <h3>1. Text Input</h3>
-<p>In Advanced Counter Sentences Tool, you can easily input your text. This is a simple text area where you can type or paste.</p>
+<p>In Advanced Counter Sentences Tool, you can easily input your text. This is a simple text area where you can type or paste.</p><br>
 <h3>2. Sentence Count</h3>
-<p>One of the features of this tool is that it counts the total number of sentences in your input text. This feature helps writers understand the structure of their writing.</p>
+<p>One of the features of this tool is that it counts the total number of sentences in your input text. This feature helps writers understand the structure of their writing.</p><br>
 <h3>3. Word Count</h3>
-<p>You need to know the total count of words you have written, and this tool also tracks it. This gives you an idea of the length of your content.</p>
+<p>You need to know the total count of words you have written, and this tool also tracks it. This gives you an idea of the length of your content.</p><br>
 <h3>4. Character Count</h3>
-<p>The character count feature tells you how many characters are there in your text, which also includes special characters and spaces.</p>
+<p>The character count feature tells you how many characters are there in your text, which also includes special characters and spaces.</p><br>
 <h3>5. Average Sentence Length</h3>
 <p>This feature calculates the average sentence length, which is an important aspect of your writing style. It is very important to maintain a balance between short sentences and long sentences.</p>
 <p><br></p>
 <h2>Advanced Features</h2>
 <h3>1. Sentence Structure Analysis</h3>
-<p>The advanced capabilities of this tool include sentence structure analysis. It identifies simple, compound and complex sentences, which helps to enhance your writing skills.</p>
+<p>The advanced capabilities of this tool include sentence structure analysis. It identifies simple, compound and complex sentences, which helps to enhance your writing skills.</p><br>
 <h3>2. Readability Metrics</h3>
-<p>This tool calculates metrics such as Flesch-Kincaid Grade Level and Reading Ease to measure the readability of your writing. These metrics tell you how easily your content can be understood.</p>
+<p>This tool calculates metrics such as Flesch-Kincaid Grade Level and Reading Ease to measure the readability of your writing. These metrics tell you how easily your content can be understood.</p><br>
 <h3>3. Syntax Highlighting</h3>
-<p>The syntax highlighting feature highlights nouns, verbs, and adjectives, which helps you improve grammar and sentence structure in your writing.</p>
+<p>The syntax highlighting feature highlights nouns, verbs, and adjectives, which helps you improve grammar and sentence structure in your writing.</p><br>
 <h3>4. Error Detection</h3>
-<p>The feature to detect grammar errors makes your writing even better. It identifies common mistakes like punctuation, subject-verb agreement.</p>
+<p>The feature to detect grammar errors makes your writing even better. It identifies common mistakes like punctuation, subject-verb agreement.</p><br>
 <h3>5. Text Statistics</h3>
 <p>This tool also shows you text statistics like average sentence length and word density, which help you analyze your writing.</p>
 <p><br></p>
 <h2>User Experience Features</h2>
 <h3>1. Copy-Paste Support</h3>
-<p>The tool has copy-paste support, which allows users to easily input their text.</p>
+<p>The tool has copy-paste support, which allows users to easily input their text.</p><br>
 <h3>2. Auto-Update</h3>
-<p>Whenever you type something in the text area, the tool automatically counts and updates the analysis. This feature is very helpful for real-time feedback.</p>
+<p>Whenever you type something in the text area, the tool automatically counts and updates the analysis. This feature is very helpful for real-time feedback.</p><br>
 <h3>3. Responsive Design</h3>
-<p>This tool works well on both mobile and desktop devices, which enhances its usability.</p>
+<p>This tool works well on both mobile and desktop devices, which enhances its usability.</p><br>
 <h3>4. Clear Formatting</h3>
 <p>If you want to clear the formatting, then this tool also gives you the option to reset the text. This allows you to start a new one.</p>
 <p><br></p>
@@ -303,17 +293,19 @@ Div {
     <li><strong>Writing Improvement:&nbsp;</strong>With the help of this tool, you can enhance your writing skills as it tells you your errors and areas of improvement.</li>
     <li><strong>Efficiency:</strong> This tool makes the writing process easy and efficient as you get everything in one place.</li>
     <li><strong>Content Quality:&nbsp;</strong>Good readability and grammar enhances the quality of your content, which is more appealing to the readers.</li>
-</ul>
+</ul><br>
 <h2><strong>Conclusion</strong></h2>
 <p>Advanced Counter Sentences Tool is an essential part of your writing journey. This tool not only tells you the sentence and word count, but also improves the quality and readability of your writing. If you want to enhance your content, then by using this tool you can improve your writing skills.</p>
-<p>So use this tool today and take your writing to the next level!</p>
+<p>So use this tool today and take your writing to the next level!</p><br>
 <blockquote>
     <p style="text-align: left;"><strong>Read More</strong></p>
     <p style="text-align: left;"><a href="Fake-Chat.html" target="_blank" rel="noopener noreferrer">Fake WhatsApp Generator</a></p>
     <p style="text-align: left;"><a href="lenny-face.html">Lenny Face Generator</a></p>
     <p style="text-align: left;"><a href="Fake-Tweet.html" target="_blank" rel="noopener noreferrer">Fake Tweet Generate</a></p>
+    <p style="text-align: left;"><a href="ml-into-ounces.html">Milliliters to Ounces Converter</a></p>
 </blockquote>
 <p><br></p></div>
+</body>
 <!-- Footer Section -->
 <footer style="
     background-color: #333;
@@ -362,14 +354,14 @@ Div {
                     ">Our Services</a>
                 </li>
                 <li style="margin: 0.5rem 0;">
-                    <a href="/" style="
+                    <a href="#" style="
                         color: #fff;
                         text-decoration: none;
                         transition: color 0.3s ease;
                     ">Expert Team</a>
                 </li>
                 <li style="margin: 0.5rem 0;">
-                    <a href="/" style="
+                    <a href="#" style="
                         color: #fff;
                         text-decoration: none;
                         transition: color 0.3s ease;
@@ -390,7 +382,7 @@ Div {
                 margin: 0;
             ">
                 <li style="margin: 0.5rem 0;">
-                    <a href="/" style="
+                    <a href="index.html" style="
                         color: #fff;
                         text-decoration: none;
                         transition: color 0.3s ease;
@@ -408,7 +400,7 @@ Div {
                         color: #fff;
                         text-decoration: none;
                         transition: color 0.3s ease;
-                    ">Privacy & Policy</a>
+                    ">Privacy and Policy</a>
                 </li>
                 <li style="margin: 0.5rem 0;">
                     <a href="contact.html" style="
@@ -428,12 +420,11 @@ Div {
                 color: #ffeb3b;
             ">Follow Us</h3>
             <div style="display: flex; gap: 1rem; justify-content: center;">
-                <a href="#" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
-                <a href="#" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
-                <a href="#" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
-                <a href="#" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
-                <a href="#" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
-                <a href="#" class="fa fa-reddit" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://www.facebook.com/pandav.da" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://x.com/DaPandav" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://www.linkedin.com/in/pandavda/" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://www.instagram.com/pandav" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://in.pinterest.com/PandavDa/" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
             </div>
         </div>
 
@@ -474,5 +465,5 @@ Div {
     </style>
 </footer>
 
-
+  <script src="script.js"></script>
 </html>
