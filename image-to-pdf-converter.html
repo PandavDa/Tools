@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="description" content="Easily convert multiple images to a PDF with adjustable layouts, portrait/landscape modes, and preview. Free, responsive, and mobile-friendly tool!"/>
+    <title>Best Free Image to PDF Converter | Free & Customizable Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLQIYksL2jvxLpy5o25w1YNFNmgXXxDk90AdoxNVTHA8CdPGOnMXE_z-lIR3qshuUAor_VPTUQeJalBo3aTOShWJ-rV088iCBZUiMy_r_lBCq7CZREqN31q-YsYPkyUcqYGbPzWo8-pcyjn2MUe6SpEJrW0AzvuZRKeYKOjEPqIX1Lj1vok_DDz0-Focv8/s1600/tools-pandavda-logo.webp" type="image/webp" sizes="16x16">
+</head>
+    <header>
+        <!-- Logo and Site Title -->
+        <div class="logo-title">
+            <img src="tools-pandavda-logo.webp" alt="Tools Pandav Da" class="logo-img">
+            <span class="site-title"><a href="index.html">Tools Pandav Da</a></span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="index.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+    </header>
+  
+<body>
+<!-- Container -->
+<center>
+<div class="container">
+  <div class="upload-area">
+    <input type="file" id="imageInput" accept="image/*" multiple>
+    <label for="imageInput">Click or drag to upload images</label>
+  </div>
+
+  <div id="previewContainer" class="preview-container"></div>
+
+  <div class="settings">
+    <label>
+      Orientation:
+      <select id="orientation">
+        <option value="portrait">Portrait</option>
+        <option value="landscape">Landscape</option>
+      </select>
+    </label>
+
+    <label>
+      Images per page:
+      <select id="imagesPerPage">
+        <option value="1">1 image</option>
+        <option value="2">2 images</option>
+        <option value="3">3 images</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="controls">
+    <button id="convertToPdf">Convert to PDF</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script>
+  const imageInput = document.getElementById('imageInput');
+  const previewContainer = document.getElementById('previewContainer');
+  const convertToPdf = document.getElementById('convertToPdf');
+  const orientationSelect = document.getElementById('orientation');
+  const imagesPerPageSelect = document.getElementById('imagesPerPage');
+
+  let images = [];
+
+  // Handle image uploads
+  imageInput.addEventListener('change', (event) => {
+    const files = Array.from(event.target.files);
+    images = [];
+    previewContainer.innerHTML = '';
+
+    files.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imgSrc = e.target.result;
+
+        // Create a preview element
+        const previewItem = document.createElement('div');
+        previewItem.classList.add('preview-item');
+
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.setAttribute('data-index', index); // Track the order of the image
+
+        previewItem.appendChild(img);
+        previewContainer.appendChild(previewItem);
+
+        images.push(imgSrc);
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+
+  // Convert images to PDF
+  convertToPdf.addEventListener('click', () => {
+    if (images.length === 0) {
+      alert('Please upload images to convert.');
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const orientation = orientationSelect.value;
+    const imagesPerPage = parseInt(imagesPerPageSelect.value, 10);
+
+    const pdf = new jsPDF({ orientation });
+
+    const pageWidth = orientation === 'portrait' ? 210 : 297;
+    const pageHeight = orientation === 'portrait' ? 297 : 210;
+
+    const imageWidth = pageWidth - 20;
+    const imageHeight = (pageHeight - 20) / imagesPerPage;
+
+    images.forEach((image, index) => {
+      if (index > 0 && index % imagesPerPage === 0) pdf.addPage();
+
+      const x = 10;
+      const y = 10 + (index % imagesPerPage) * imageHeight;
+
+      pdf.addImage(image, 'JPEG', x, y, imageWidth, imageHeight);
+    });
+
+    pdf.save('tools.pandavda.pdf');
+  });
+</script>
+</center>
+<style>
+/* Base Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  color: #333;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  width: 90%;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+/* Upload Area */
+.upload-area {
+  text-align: center;
+  border: 2px dashed #ff6347;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.upload-area label {
+  display: block;
+  color: #ff6347;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+/* Preview Container */
+.preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.preview-item {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Settings */
+.settings {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.settings label {
+  font-size: 1em;
+  color: #555;
+}
+
+.settings select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Controls */
+.controls {
+  text-align: center;
+}
+
+.controls button {
+  padding: 10px 20px;
+  background: #32cd32;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s;
+}
+
+.controls button:hover {
+  background: #28a745;
+}
+
+</style>
+<div class="article">
+<style>
+h1, h2, p, h3, h4, ul, li {
+  margin: 15px;
+}
+</style>
+<br>
+<blockquote>
+    <p style="text-align: left;"><strong>Read More</strong></p>
+    <p style="text-align: left;"><a href="Fake-Tweet.html">Fake Tweets Generator</a></p>
+    <p style="text-align: left;"><a href="lenny-face.html">Lenny Face Generator</a></p>
+    <p style="text-align: left;"><a href="counter-sentences.html">Counter Sentences</a></p>
+    <p style="text-align: left;"><a href="ml-into-ounces.html">Milliliters to Ounces Converter</a></p>
+</blockquote>
+</div>
+</body>
+<!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="about-me.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="portfolio.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="our-services.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="index.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="about.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="privacy-policy.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Privacy and Policy</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="contact.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="https://www.facebook.com/pandav.da" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://x.com/DaPandav" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://www.linkedin.com/in/pandavda/" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://www.instagram.com/pandav" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://in.pinterest.com/PandavDa/" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 Tools Pandav Da. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+</footer>
+
+  <script src="script.js"></script>
+</html>
