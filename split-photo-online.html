@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Split Photo Online | Free & Easy Image Split Tool for Fast Splitting</title>
+    <meta name="description" content="Split photo online easily! Use our tool for image split online, split image online, or split photos online. Perfect for splitting images fast.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+    <header>
+        <!-- Logo and Site Title -->
+       <div class="logo-title">
+            <a href="index.html"><img src="tools-pandavda-logo.webp" alt="Tools Pandav Da" class="logo-img"></a>
+            <span class="site-title"><a href="index.html">Tools Pandav Da</a></span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="index.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+      </div>
+    </header>
+<body><br>
+  <center>
+<div class="container">
+  <h1>Photo Splitter Tool</h1>
+  <div id="dropZone" class="drop-zone">Drag & Drop or Click to Upload</div>
+  <input type="file" id="imageInput" accept="image/*" style="display: none;">
+
+  <div class="form-group">
+    <label for="rowsInput">Rows:</label>
+    <input type="number" id="rowsInput" min="1" required>
+  </div>
+  <div class="form-group">
+    <label for="columnsInput">Columns:</label>
+    <input type="number" id="columnsInput" min="1" required>
+  </div>
+  <div class="form-group">
+    <label for="formatInput">Format:</label>
+    <select id="formatInput">
+      <option value="jpeg">JPEG</option>
+      <option value="png">PNG</option>
+      <option value="webp">WebP</option>
+    </select>
+  </div>
+
+  <button class="button" onclick="splitAndProcess()">Split & Download</button>
+  <div id="output"></div>
+</div>
+
+<style>
+  .container {
+    width: 100%;
+    max-width: 350px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  .drop-zone {
+    padding: 20px;
+    border: 2px dashed #4CAF50;
+    border-radius: 6px;
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .form-group {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .form-group label {
+    font-size: 14px;
+    color: #333;
+    margin-right: 10px;
+  }
+  .form-group input,
+  .form-group select {
+    width: 50%;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .button {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  .button:hover {
+    background-color: #45a049;
+  }
+  #output {
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  a {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 14px;
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+<script>
+  const dropZone = document.getElementById('dropZone');
+  const imageInput = document.getElementById('imageInput');
+
+  dropZone.addEventListener('click', () => imageInput.click());
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = '#45a049';
+  });
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.style.borderColor = '#4CAF50';
+  });
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    imageInput.files = e.dataTransfer.files;
+    dropZone.style.borderColor = '#4CAF50';
+  });
+
+  async function splitAndProcess() {
+    const imageFile = imageInput.files[0];
+    const rows = parseInt(document.getElementById('rowsInput').value);
+    const columns = parseInt(document.getElementById('columnsInput').value);
+    const format = document.getElementById('formatInput').value;
+    const output = document.getElementById('output');
+
+    if (!imageFile || rows < 1 || columns < 1) {
+      alert('Please provide an image, rows, and columns.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+      const img = new Image();
+      img.src = e.target.result;
+      await img.decode();
+
+      const pieceWidth = img.width / columns;
+      const pieceHeight = img.height / rows;
+
+      const zip = new JSZip();
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.width = pieceWidth;
+      canvas.height = pieceHeight;
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < columns; col++) {
+          context.clearRect(0, 0, pieceWidth, pieceHeight);
+          context.drawImage(
+            img,
+            col * pieceWidth, row * pieceHeight, pieceWidth, pieceHeight,
+            0, 0, pieceWidth, pieceHeight
+          );
+
+          const dataUrl = canvas.toDataURL(`image/${format}`);
+          const base64Data = dataUrl.replace(/^data:image\/\w+;base64,/, '');
+          zip.file(`split-${row}-${col}.${format}`, base64Data, {base64: true});
+        }
+      }
+
+      zip.generateAsync({ type: 'blob' }).then((zipFile) => {
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(zipFile);
+        downloadLink.download = "tools.pandavda.split-images.zip";
+        downloadLink.textContent = "Download ZIP with Split Images";
+        downloadLink.className = "button";
+        output.innerHTML = '';
+        output.appendChild(downloadLink);
+      });
+    };
+
+    reader.readAsDataURL(imageFile);
+  }
+</script>
+</center>
+    <!--article-->
+
+<div class="article">
+<style>
+h1, h2, p, h3, h4, ol, li, ul {
+  margin: 15px;
+}
+</style>
+<br>
+<h1>Split Photo Online: An easy and fast way to split photos!</h1>
+<p>In today&apos;s digital era, tools like &quot;split photo online&quot; and &quot;image split online&quot; have become quite popular. Whether you are a designer, photographer, or a common user, sometimes you need to split photos. If you are wondering &quot;how to split images&quot; or how to &quot;split photos online&quot;, then this article is for you. In this we will talk about a better and easier way, in which you can split your photos without any software.</p>
+<p><center>
+<img src="Image-split-online.webp" alt="split photo online, image split online, split photo online, image split online, split image online, split photos online, splitting image online, how to split images" width="250" height="300">
+    </center></p>
+<h2>What is Split Photo Online?</h2>
+<p>&quot;Split photo online&quot; is a service in which you can split your photos into separate parts, without any technical knowledge. This is a web-based tool that gives you the facility to &quot;image split online&quot;. You just have to upload your photo, set the grid size or rows/columns, and download the split photo.</p>
+<p><br></p>
+<h2>Split Photo Tool Features:</h2>
+<ol style="list-style-type: upper-alpha;">
+    <li>Facility to upload images (JPEG, PNG, WebP, etc.).</li>
+    <li>Setting custom grid size.</li>
+    <li>Saving in high-quality output formats (JPEG, PNG, WebP).</li>
+    <li>Downloading output images in ZIP file.</li>
+</ol>
+<p><br></p>
+<h2>Why is it necessary to split photos?</h2>
+<p>There are several reasons why you need to split photos:</p>
+<ul style="list-style-type: circle;">
+    <li><strong>For Social Media Posts:</strong> It is very useful to &quot;split photos online&quot; to create creative grids on Instagram or Facebook.</li>
+    <li><strong>Dividing Large Images:</strong> &quot;Split Image Online&quot; is used to divide large banners or posters into smaller images.</li>
+    <li><strong>To Create a Collage:</strong> You can create a creative collage by splitting multiple photos.</li>
+    <li><strong>Professional Design Projects:&nbsp;</strong>Designers need to split high-resolution images and save them in different formats.</li>
+</ul>
+<p><br></p>
+<h2>How to Split Photos Online?</h2>
+<p>Let&apos;s now understand how &quot;how to split images&quot; can be done using a simple online tool:</p>
+<h3>Step 1: Upload Image</h3>
+<p>Go to any online photo split tool and upload your image. In maximum tools you get the facility of drag-and-drop.</p>
+<p><br></p>
+<h3>Step 2: Choose Grid Size</h3>
+<p>Set the grid size, such as 2x2, 3x3 or custom size. This is the most important step of &quot;split photos online&quot;, because it decides how your photo will be divided.</p>
+<p><br></p>
+<h3>Step 3: Select Format</h3>
+<p>Choose the format of the output image (JPEG, PNG, WebP, etc.). Select high-quality format according to your requirement.</p>
+<p><br></p>
+<h3>Step 4: Split and Download</h3>
+<p>Press the Split button and wait for the process to complete. After the process is complete, you will get the option to download the split images as a ZIP file.</p>
+<p><br></p>
+<h2>Best Tools for Image Split Online</h2>
+<p>Today there are many tools available that help in &quot;split image online&quot;. Below are some popular tools that will make your work easy:</p>
+<p><br></p>
+<ul>
+    <li>
+        <h3>1. PineTools</h3>
+    </li>
+</ul>
+<p>This is a popular tool that allows you to divide photos according to rows and columns. It is simple and beginner-friendly.</p>
+<p><br></p>
+<ul>
+    <li>
+        <h3>2. IMGonline</h3>
+    </li>
+</ul>
+<p>This is an advanced tool that gives you multiple options such as splitting photos according to specific dimensions.</p>
+<p><br></p>
+<ul>
+    <li>
+        <h3>3. PhotoSplit</h3>
+    </li>
+</ul>
+<p>This is a perfect tool for Instagram users. You can easily download split photos by creating grids with it.</p>
+<p><br></p>
+<ul>
+    <li>
+        <h3>4. Befunky</h3>
+    </li>
+</ul>
+<p>Befunky is a versatile online tool that is useful not only for splitting photos, but also for editing.</p>
+<p><br></p>
+<ul>
+    <li style="font-weight: bold;">
+        <h3><strong>5. Canva</strong></h3>
+    </li>
+</ul>
+<p>If you want a premium experience, then Canva is an all-in-one tool in which you can use many other features along with &quot;splitting image online&quot;.</p>
+<p><br></p>
+<h2>Benefits of Split Image Online</h2>
+<ul style="list-style-type: circle;">
+    <li><strong>Time-Saving:</strong> By using online tools, you can complete your work quickly without any software.</li>
+    <li><strong>Accessible from Anywhere:</strong> Just an internet connection and browser is required.</li>
+    <li><strong>Free of Cost:</strong> Maximum tools are free, so you don&apos;t need to make any investment.</li>
+    <li><strong>No Technical Skills Required:</strong> Even if you are a beginner, you can &quot;split photos online&quot;.</li>
+</ul>
+<p><br></p>
+<h2>Tips for Splitting Images Online</h2>
+<ul style="list-style-type: circle;">
+    <li><strong>Use High-Quality Images:</strong> While splitting, ensure that the image resolution is good, otherwise the output images may be blurred.</li>
+    <li><strong>Choose Grid Size Thoughtfully:</strong> Choose the grid size according to your requirement. For example, 3x3 is quite popular for Instagram grids.</li>
+    <li><strong>Pay attention to the Output Format:</strong> If you want high-quality images, select PNG or WebP.</li>
+</ul>
+<p><br></p>
+<h1>FAQs</h1>
+<h3>Q1: Can I &quot;split image online&quot; from mobile?</h3>
+<p>Yes, most of the tools are mobile-friendly and you can easily split photos from your mobile browser.</p>
+<p><br></p>
+<h3>Q2: Are these tools free?</h3>
+<p>Yes, maximum online tools provide the facility of splitting photos for free. But for some advanced features you have to take a subscription.</p>
+<p><br></p>
+<h3>Q3: Do I need an account?</h3>
+<p>Most of the tools work without any account. You can split your photo by directly uploading.</p>
+<p><br></p>
+<h3>Q4: Can I split high-resolution images?</h3>
+<p>Absolutely, but make sure that the tool you are using supports high-resolution images.</p>
+<p><br></p>
+<h1>Conclusion</h1>
+<p>If you are looking for an easy and fast solution to &quot;split photo online&quot; or &quot;image split online&quot;, then now you must have a complete idea of the tools and process. This is a technique that is very helpful for designers and photographers. You can create creative projects by splitting your photos without any hassle.</p>
+<p>Now don&apos;t waste time, download your photos after splitting them and explore new ideas. Make the best use of &quot;Split photos online&quot; and increase your productivity!</p>
+<br>
+<blockquote>
+    <p style="text-align: left;"><strong>Read More</strong></p>
+    <p style="text-align: left;"><a href="https://tools.pandavda.com/Fake-Chat.html">Fake WhatsApp Generator</a></p>
+    <p style="text-align: left;"><a href="https://tools.pandavda.com/lenny-face.html">Lenny Face Generator</a></p>
+    <p style="text-align: left;"><a href="https://tools.pandavda.com/counter-sentences.html">Counter Sentences</a></p>
+    <p style="text-align: left;"><a href="https://tools.pandavda.com/bra-size-to-cup-size.html">Bra Size to Cup Size</a></p>
+    <p style="text-align: left;"><a href="https://tools.pandavda.com/convert-heic-to-png.html">HEIC to PNG Converter</a></p>
+</blockquote><br>
+</div>
+
+    <!--end article-->
+   <script src="script.js"></script>
+</body>
+    
+<!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="https://tools.pandavda.com/about-me.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="https://tools.pandavda.com/portfolio.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="https://tools.pandavda.com/our-services.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="index.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="about.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="privacy-policy" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Privacy & Policy</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="contact.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="https://www.facebook.com/pandavda" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://x.com/DaPandav" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://www.linkedin.com/in/pandavda" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://www.instagram.com/pandavda" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-reddit" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 MyWebsite. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+</footer>
+</html>
