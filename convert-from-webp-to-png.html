@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convert WEBP images to PNG format effortlessly with this responsive web tool. Upload, convert, and download your PNG images">
+    <title>Converter for WEBP to PNG - Fast and Easy Image Conversion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLQIYksL2jvxLpy5o25w1YNFNmgXXxDk90AdoxNVTHA8CdPGOnMXE_z-lIR3qshuUAor_VPTUQeJalBo3aTOShWJ-rV088iCBZUiMy_r_lBCq7CZREqN31q-YsYPkyUcqYGbPzWo8-pcyjn2MUe6SpEJrW0AzvuZRKeYKOjEPqIX1Lj1vok_DDz0-Focv8/s1600/tools-pandavda-logo.webp" type="image/webp" sizes="16x16">
+</head>
+    <header>
+        <!-- Logo and Site Title -->
+        <div class="logo-title">
+            <img src="tools-pandavda-logo.webp" alt="Tools Pandav Da" class="logo-img">
+            <span class="site-title"><a href="index.html">Tools Pandav Da</a></span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="index.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+    </header>
+  
+<body>
+<!-- Container -->
+<center>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #ff7eb3, #ff758c, #ffa26b);
+        color: #fff;
+     
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    input[type="file"] {
+        margin-bottom: 20px;
+    }
+
+    button {
+        background: #6200ea;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background: #3700b3;
+    }
+
+    .loader {
+        display: none;
+        margin: 20px auto;
+        border: 8px solid rgba(255, 255, 255, 0.2);
+        border-top: 8px solid #fff;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .download-link {
+        display: none;
+        margin-top: 20px;
+        color: #fff;
+        text-decoration: underline;
+        font-size: 18px;
+    }
+</style>
+
+<div class="container">
+    <h1>WEBP to PNG Converter</h1>
+    <input type="file" id="webpFile" accept="image/webp">
+    <button onclick="convertImage()">Convert</button>
+    <div class="loader" id="loader"></div>
+    <a id="downloadLink" class="download-link">Download PNG</a>
+</div>
+
+<script>
+    function convertImage() {
+        const fileInput = document.getElementById('webpFile');
+        const loader = document.getElementById('loader');
+        const downloadLink = document.getElementById('downloadLink');
+
+        if (!fileInput.files[0]) {
+            alert('Please select a WEBP file to convert.');
+            return;
+        }
+
+        loader.style.display = 'block';
+        downloadLink.style.display = 'none';
+
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+            const img = new Image();
+            img.src = event.target.result;
+
+            img.onload = function () {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+
+                canvas.toBlob(blob => {
+                    const url = URL.createObjectURL(blob);
+                    downloadLink.href = url;
+                    downloadLink.download = 'Tools.Pandavda.png';
+                    loader.style.display = 'none';
+                    downloadLink.style.display = 'block';
+                }, 'image/png');
+            };
+        };
+
+        reader.readAsDataURL(file);
+    }
+</script>
+
+ </center>
+    <!--article-->
+<style>
+Div, ul, ol {
+ 
+ margin: 20px;
+}
+</style>
+<div class="article">
+<h1>WEBP to PNG Converter Ultimate Guide: Easy and Efficient Ways</h1>
+<p>If you&apos;re looking to convert WEBP to PNG, you&apos;re not alone. WEBP, a modern image format developed by Google, is very popular today because it&apos;s efficient in compression and great quality. But sometimes compatibility issues or specific project requirements might require you to convert WEBP files to the universally accepted PNG format. This guide will walk you through every aspect of converting WEBP to PNG, such as its importance, tools, and best methods.</p>
+<p><p> <center>
+<img src="convert-from-webp-to-png.webp" alt="convert from webp to png, WEBP to PNG Converter, convert WEBP to PNG" width="250" height="300">
+    </center></p><br>
+<h2>Why do you need to convert WEBP to PNG?</h2>
+<p><br></p>
+<ul>
+    <li><strong>Universal Compatibility:</strong> PNG format is supported by every device, platform and software, making it a perfect choice for image editing and sharing.</li>
+    <li><strong>&nbsp;Transparency Support:&nbsp;</strong>Both WEBP and PNG support transparency, but by converting to PNG you get compatibility with legacy software as well.</li>
+    <li><strong>&nbsp;Lossless Quality:&nbsp;</strong>PNG is a lossless format, meaning your image quality is not compromised at all.</li>
+    <li><strong>Printing and Publishing:</strong> PNG is the preferred format for professional printing and publishing.</li>
+</ul>
+<h2>Ways to Convert WEBP to PNG</h2>
+<h3>&nbsp;Use Online Tools</h3>
+<ol>
+    <li>You will find online converters that give you the option to convert WEBP to PNG instantly. Just upload your image and press the download button. Popular tools are:- <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">TinyPNG</a>- <a href="https://cloudconvert.com/" target="_blank" rel="noopener noreferrer">CloudConvert&nbsp;</a></li>
+    <li>Conversion Through Free SoftwareIf you have a lot of images or privacy is a concern, then try free software like:- <a href="https://www.gimp.org/" target="_blank" rel="noopener noreferrer">GIMP</a>: A powerful tool that easily handles WEBP and PNG formats.- IrfanView: A lightweight software that also does batch conversions.&nbsp;</li>
+    <li>Browser ExtensionsYour browser has some extensions that can convert WEBP images to PNG directly.- DIY Method: Conversion Through CodeIf you are tech-savvy, you can use coding tools. It is quite efficient to convert images using JavaScript or Python libraries such as Pillow and Sharp.</li>
+</ol>
+<p><br></p>
+<h2>SEO Benefits of Converting to PNG</h2>
+<p>WEBP to PNG conversion also has a positive impact on SEO. PNG format is supported everywhere and your website&apos;s images load well on every browser, which improves both user experience and ranking.</p>
+<p><br></p>
+<h2>Conclusion</h2>
+<p>Converting WEBP to PNG is easy if you use the right tools and techniques. Whether you prefer online tools, software, or through coding, you have options for every kind of need. Now convert your images to PNG without any tension and share them on every platform.</p>
+<p><br></p>
+<p>This guide will help you understand the process and choose the best method. You can also try a method according to your needs!</p>
+
+<br>
+<blockquote>
+    <p style="text-align: left;"><strong>Read More</strong></p>
+    <p style="text-align: left;"><a href="Fake-Chat.html" target="_blank" rel="noopener noreferrer">Fake WhatsApp Generator</a></p>
+    <p style="text-align: left;"><a href="lenny-face.html">Lenny Face Generator</a></p>
+    <p style="text-align: left;"><a href="Fake-Tweet.html" target="_blank" rel="noopener noreferrer">Fake Tweet Generate</a></p>
+    <p style="text-align: left;"><a href="ml-into-ounces.html">Milliliters to Ounces Converter</a></p>
+</blockquote>
+<p><br></p></div>
+</body>
+<!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="about-me.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="portfolio.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="our-services.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="index.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="about.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="privacy-policy.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Privacy and Policy</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="contact.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="https://www.facebook.com/pandav.da" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://x.com/DaPandav" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://www.linkedin.com/in/pandavda/" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://www.instagram.com/pandav" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="https://in.pinterest.com/PandavDa/" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 Tools Pandav Da. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+</footer>
+
+  <script src="script.js"></script>
+</html>
