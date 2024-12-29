@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Text to PDF Conversion - Easy & Free Tool for PDF Creation</title>
+    <meta name="description" content="Discover the easiest way for text to PDF conversion. Convert text into professional PDFs with our free and user-friendly tool, compatible with all devices.">
+    <meta name="keywords" content="text to pdf conversion, convert text to PDF, text to pdf converter, easy text to PDF tool">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+     <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLQIYksL2jvxLpy5o25w1YNFNmgXXxDk90AdoxNVTHA8CdPGOnMXE_z-lIR3qshuUAor_VPTUQeJalBo3aTOShWJ-rV088iCBZUiMy_r_lBCq7CZREqN31q-YsYPkyUcqYGbPzWo8-pcyjn2MUe6SpEJrW0AzvuZRKeYKOjEPqIX1Lj1vok_DDz0-Focv8/s1600/tools-pandavda-logo.webp" type="image/webp" sizes="16x16">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+    <header>
+        <!-- Logo and Site Title -->
+       <div class="logo-title">
+            <img src="tools-pandavda-logo.webp" alt="Tools Pandav Da" class="logo-img">
+            <span class="site-title"><a href="index.html"><a href="index.html">Tools Pandav Da</a></span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="index.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+    </div>
+    </header>
+<body>
+    <h1>Text and TXT to PDF Conversion</h1>
+    <p>Quickly create, customize, and upload TXT files for PDF export using this tool. Add images and format text with ease.</p>
+
+    <!-- Rich Text Editor Toolbar -->
+    <div class="toolbar">
+        <!-- Paragraph / Heading Selection -->
+        <select onchange="formatBlock(this.value)">
+            <option value="p">Paragraph</option>
+            <option value="h1">Heading 1</option>
+            <option value="h2">Heading 2</option>
+            <option value="h3">Heading 3</option>
+            <option value="h4">Heading 4</option>
+        </select>
+
+        <!-- Text Formatting -->
+        <button onclick="formatText('bold')" title="Bold"><i class="fas fa-bold"></i></button>
+        <button onclick="formatText('italic')" title="Italic"><i class="fas fa-italic"></i></button>
+        <button onclick="formatText('underline')" title="Underline"><i class="fas fa-underline"></i></button>
+        <button onclick="formatText('strikeThrough')" title="Strike Through"><i class="fas fa-strikethrough"></i></button>
+
+        <!-- Bullet and Number Lists -->
+        <button onclick="formatText('insertUnorderedList')" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+        <button onclick="formatText('insertOrderedList')" title="Number List"><i class="fas fa-list-ol"></i></button>
+
+        <!-- Text Alignment -->
+        <button onclick="alignText('left')" title="Align Left"><i class="fas fa-align-left"></i></button>
+        <button onclick="alignText('center')" title="Align Center"><i class="fas fa-align-center"></i></button>
+        <button onclick="alignText('right')" title="Align Right"><i class="fas fa-align-right"></i></button>
+
+        <!-- Font Selection -->
+        <select onchange="changeFont(this.value)">
+            <option value="Arial">Arial</option>
+            <option value="Times New Roman">Times New Roman</option>
+        </select>
+
+        <!-- Change Font Color -->
+        <input type="color" onchange="changeFontColor(this.value)" title="Font Color">
+
+        <!-- TXT File Upload -->
+        <input type="file" id="txtUpload" accept=".txt" title="Upload TXT File" onchange="uploadTXT(event)">
+
+        <!-- Image Upload -->
+        <input type="file" id="imageUpload" accept="image/*" title="Upload Image" onchange="insertImage(event)">
+    </div>
+
+    <!-- Message Area -->
+    <div id="message"></div>
+
+    <!-- Editable Text Area -->
+    <div contenteditable="true" id="editor" class="editor">
+        <p>Start writing your text here. Use the toolbar above to format or customize your content.</p>
+    </div>
+
+    <!-- Button to Download as PDF -->
+    <button class="download-btn" onclick="generatePDF()">
+        <i class="fas fa-file-pdf"></i> Download as PDF
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script>
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+
+        function alignText(alignment) {
+            document.execCommand('justify' + alignment.charAt(0).toUpperCase() + alignment.slice(1), false, null);
+        }
+
+        function changeFont(font) {
+            document.execCommand('fontName', false, font);
+        }
+
+        function changeFontColor(color) {
+            document.execCommand('foreColor', false, color);
+        }
+
+        function formatBlock(tag) {
+            document.execCommand('formatBlock', false, tag);
+        }
+
+        function uploadTXT(event) {
+            const file = event.target.files[0];
+            if (file && file.type === "text/plain") {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("editor").innerText = e.target.result;
+                    showMessage("TXT file uploaded successfully!");
+                };
+                reader.readAsText(file);
+            } else {
+                showMessage("Please upload a valid TXT file!", true);
+            }
+        }
+
+        function insertImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.style.maxWidth = "100%";
+                    img.style.margin = "10px 0";
+                    document.getElementById("editor").appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function generatePDF() {
+            const element = document.getElementById('editor');
+            const opt = {
+                margin: 0.5,
+                filename: 'text-to-pdf.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
+            };
+            html2pdf().from(element).set(opt).save();
+        }
+
+        function showMessage(message, isError = false) {
+            const messageDiv = document.getElementById("message");
+            messageDiv.innerText = message;
+            messageDiv.style.background = isError ? "#dc3545" : "#28a745";
+            messageDiv.style.display = "block";
+            setTimeout(() => {
+                messageDiv.style.display = "none";
+            }, 3000);
+        }
+    </script>
+
+  
+
+    <!--article-->
+
+<div class="article">
+<style>
+h1, h2, p, h3, h4, ul, li, ol {
+  margin: 15px;
+}
+</style>
+<h1>Text to PDF Conversion Tool: An Easy and Powerful Way</h1>
+<p>In today&apos;s digital era, sharing and saving documents has become very important. If you are looking for a reliable and user-friendly solution for &quot;text to pdf conversion&quot;, then our tool is perfect for you. In this article, we will discuss in detail how you can convert text or TXT files to PDF and convert PDF files to different formats, such as keynote, zip, or txt.</p>
+<p><br></p>
+<h2>Text to PDF Converter: What is this tool?</h2>
+<p>Our text to pdf converter is a powerful tool that gives you the option to convert text to PDF format. With this tool, you can customize your text, add images, and export a professional-looking PDF. If you are working on an iPhone or any other device, this tool will work seamlessly.</p>
+<p><br></p>
+<h2>Features you will like</h2>
+<h3>1. Text to PDF Conversion</h3>
+<p>Convert your text to PDF in just one click. All you have to do is type your content, add formatting, and click on the &quot;Download as PDF&quot; button.</p>
+<p><br></p>
+<h3>2. TXT to PDF Convert</h3>
+<p>If you have a TXT file, it is very easy to convert it to PDF with the help of this tool. Upload the file and edit the text in the editor and export it.</p>
+<p><br></p>
+<h3>3. Text to PDF iPhone Compatibility</h3>
+<p>If you are using iPhone and wondering &quot;how to convert text to pdf on iPhone&quot;, then this tool is perfectly compatible. Open any browser, type your text and download the PDF.</p>
+<p><br></p>
+<h3>4. Copied Text to PDF Converter</h3>
+<p>Have you copied text from an article or document? Simply paste it in the editor and generate a clean PDF using the copied text to pdf converter.</p>
+<p><br></p>
+<h3>5. Option to Add Image</h3>
+<p>Not just text, add images to PDF as well. This feature is very useful for creating presentations and creative documents.</p>
+<p><br></p>
+<h3>6. Custom Formatting Options</h3>
+<p>Multiple options for bold, italic, underline, headings and alignment are available in the editor.</p>
+<p><br></p>
+<h2>How to use it?</h2>
+<p><br></p>
+<p><strong>1. How to Convert TXT to PDF</strong></p>
+<ul>
+    <li>Click on the &quot;TXT Upload&quot; option in the editor.</li>
+    <li>Select your TXT file.</li>
+    <li>The file content will appear in the editor. Formatting and save the PDF.</li>
+</ul>
+<p><br></p>
+<p><strong>2. How to Convert PDF to TXT Format</strong></p>
+<ul>
+    <li>If you have a PDF file and want it in text format, you can easily convert PDF to TXT using third-party tools. But our tool currently specializes only in converting TXT to PDF.</li>
+</ul>
+<p><br></p>
+<p><strong>3. How to Change PDF to ZIP File</strong></p>
+<ul>
+    <li>First create your PDF file.</li>
+    <li>After that, convert the PDF to ZIP format using an online ZIP conversion tool.</li>
+</ul>
+<p><br></p>
+<p><strong>4. How to Convert a PDF to Keynote</strong></p>
+<ul>
+    <li>First convert your PDF file to TXT or Word.</li>
+    <li>Then import it into the Keynote application and customize it.</li>
+</ul>
+<p><br></p>
+<p><strong>5. How to Convert Text to PDF on iPhone</strong></p>
+<ul>
+    <li>Open our tool on any browser.</li>
+    <li>Type or upload the text.</li>
+    <li>Download it in PDF format.</li>
+</ul>
+<p><br></p>
+<p><strong>6. Text Message to PDF Converter</strong></p>
+<ul>
+    <li>If you want to save a text message or chat history in PDF format, paste your messages in the editor and download it.</li>
+</ul>
+<p><br></p>
+<h2>What is special in our tool?</h2>
+<p><strong>Responsive UI</strong></p>
+<ul>
+    <li>This tool is perfectly compatible with mobile, tablet and desktop devices. Whether you are using iPhone or Android, it will work smoothly on all.</li>
+</ul>
+<p><br></p>
+<p><strong>Fast and Reliable</strong></p>
+<ul>
+    <li>This tool is lightweight and fast, in which you will not take much time to convert your files.</li>
+</ul>
+<p><br></p>
+<p><strong>Free of Cost</strong></p>
+<ul>
+    <li>This tool is absolutely free to use. You just have to upload your content in the editor and create your PDF.</li>
+</ul>
+<p><br></p>
+<h2>FAQs</h2>
+<h4>Q1: How to Convert Text to PDF Effortlessly?</h4>
+<p>You just have to type your content in the editor, use the formatting options and click on the download button.</p>
+<p><br></p>
+<h4>Q2: How Does TXT to PDF Conversion Work?</h4>
+<p>Select your TXT file from the Upload option, which will automatically open in the editor. You can export your file to PDF by adding formatting.</p>
+<p><br></p>
+<h4>Q3: Is this tool mobile friendly?</h4>
+<p>Yes, this tool is fully responsive and works on any device, including iPhone.</p>
+<p><br></p>
+<h4>Q4: Can I add images to PDF?</h4>
+<p>Absolutely! You can add images to your PDF by using the image upload button.</p>
+<p><br></p>
+<h2>Conclusion</h2>
+<p>Our text to pdf converter is an easy-to-use and efficient tool that greatly simplifies your daily document tasks. If you are wondering &quot;how to convert text to pdf on iPhone&quot; or on any device, then you don&apos;t need to search anymore. Whether you use it for professional work or personal projects, this tool will work everywhere.</p>
+<p><br></p>
+<p>Try it now and create your first PDF! 😄</p>
+<br>
+<blockquote>
+    <p style="text-align: left;"><strong>Read More</strong></p>
+    <p style="text-align: left;"><a href="/Fake-Chat.html">Fake WhatsApp Generator</a></p>
+    <p style="text-align: left;"><a href="/lenny-face.html">Lenny Face Generator</a></p>
+    <p style="text-align: left;"><a href="/counter-sentences.html">Counter Sentences</a></p>
+    <p style="text-align: left;"><a href="/HEIC-to-JPG-Converter.html">HEIC to JPG Converter</a></p>
+    <p style="text-align: left;"><a href="/cool-name-of-instagram.html">Cool Name of Instagram</a></p>
+</blockquote><br>
+</div>
+    <!--end article-->
+   <script src="script.js"></script>
+</body>
+    
+<!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="about-me.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="portfolio.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="our-services.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="index.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="about.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="privacy-policy" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Privacy & Policy</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="contact.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-reddit" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 MyWebsite. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1, h2, h3 {
+            color: #ffdb58;
+        }
+
+        .editor {
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            color: #000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            min-height: 300px;
+            text-align: left;
+        }
+
+        .download-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255, 0, 0, 0.3);
+        }
+
+        .toolbar {
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .toolbar button, .toolbar select, .toolbar input[type="file"] {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background: #f8f9fa;
+            color: #333;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .toolbar button i {
+            font-size: 16px;
+        }
+
+        .toolbar button:hover, .toolbar select:hover, .toolbar input[type="file"]:hover {
+            background-color: #e9ecef;
+            transform: scale(1.03);
+        }
+
+        input[type="color"] {
+            width: 40px;
+            height: 40px;
+            border: none;
+            padding: 0;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 10px;
+            color: #fff;
+            background: #28a745;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .toolbar button, .toolbar select {
+                flex: 1;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</footer>
+</html>
