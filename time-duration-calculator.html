@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Time Duration Calculator - Tools Pandav Da</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+     <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLQIYksL2jvxLpy5o25w1YNFNmgXXxDk90AdoxNVTHA8CdPGOnMXE_z-lIR3qshuUAor_VPTUQeJalBo3aTOShWJ-rV088iCBZUiMy_r_lBCq7CZREqN31q-YsYPkyUcqYGbPzWo8-pcyjn2MUe6SpEJrW0AzvuZRKeYKOjEPqIX1Lj1vok_DDz0-Focv8/s1600/tools-pandavda-logo.webp" type="image/webp" sizes="16x16">
+</head>
+    <header>
+        <!-- Logo and Site Title -->
+       <div class="logo-title">
+            <img src="tools-pandavda-logo.webp" alt="Tools Pandav Da" class="logo-img">
+            <span class="site-title"><a href="index.html"><a href="index.html">Tools Pandav Da</a></span>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="index.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+<style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #4A90E2; /* New background color */
+    color: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo and Title Container */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo Styling */
+.logo-img {
+    width: 50px; /* Adjust width to fit your logo */
+    height: auto;
+}
+
+/* Site Title Styling */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffeb3b; /* Hover color */
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Hide nav links and show hamburger menu on small screens */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #4A90E2;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+
+/* Toggle the menu when active */
+.nav-links.active {
+    display: flex;
+}
+
+  </style>
+      <script>
+        // Toggle the active class on nav links to show/hide menu
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+      </script>
+    </div>
+    </header>
+<body>
+ <center> <div class="calculator-container">
+  <h1>Time Duration Calculator</h1>
+  <div class="output">
+    <h2>Duration</h2>
+    <b><p style="color: rgb(44, 130, 201);"><span id="days">0</span> days, <span id="hours">0</span> hours, <span id="minutes">0</span> minutes, <span id="seconds">0</span> seconds</p></b>
+  </div>
+
+  <div class="inputs">
+    <label for="start-date">Start Date & Time:</label>
+    <input type="datetime-local" id="start-date" class="input-field" placeholder="Start Date & Time">
+    <select id="start-ampm" class="ampm-dropdown">
+      <option value="AM">AM</option>
+      <option value="PM">PM</option>
+    </select>
+
+    <label for="end-date">End Date & Time:</label>
+    <input type="datetime-local" id="end-date" class="input-field" placeholder="End Date & Time">
+    <select id="end-ampm" class="ampm-dropdown">
+      <option value="AM">AM</option>
+      <option value="PM">PM</option>
+    </select>
+  </div>
+</div>
+
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ff6b6b, #ffb3b3);
+    color: #fff;
+    
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .calculator-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 100%;
+  }
+
+  h1, h2 {
+    text-align: center;
+  }
+
+  label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+  }
+
+  .ampm-dropdown {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    background-color: #ffe6e6;
+  }
+
+  .output {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+</style>
+
+<script>
+  const startDateInput = document.getElementById('start-date');
+  const endDateInput = document.getElementById('end-date');
+  const startAmpmSelect = document.getElementById('start-ampm');
+  const endAmpmSelect = document.getElementById('end-ampm');
+
+  function convertTo24Hour(date, ampm) {
+    const hours = date.getHours();
+    if (ampm === 'PM' && hours < 12) {
+      date.setHours(hours + 12);
+    } else if (ampm === 'AM' && hours === 12) {
+      date.setHours(0);
+    }
+  }
+
+  function updateDuration() {
+    const startDate = new Date(startDateInput.value);
+    const endDate = new Date(endDateInput.value);
+
+    if (isNaN(startDate) || isNaN(endDate)) {
+      return;
+    }
+
+    convertTo24Hour(startDate, startAmpmSelect.value);
+    convertTo24Hour(endDate, endAmpmSelect.value);
+
+    const diff = Math.abs(endDate - startDate);
+    const seconds = Math.floor(diff / 1000) % 60;
+    const minutes = Math.floor(diff / (1000 * 60)) % 60;
+    const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    document.getElementById('days').textContent = days;
+    document.getElementById('hours').textContent = hours;
+    document.getElementById('minutes').textContent = minutes;
+    document.getElementById('seconds').textContent = seconds;
+  }
+
+  startDateInput.addEventListener('input', updateDuration);
+  endDateInput.addEventListener('input', updateDuration);
+  startAmpmSelect.addEventListener('change', updateDuration);
+  endAmpmSelect.addEventListener('change', updateDuration);
+</script>
+</center>
+
+    <!--article-->
+
+<div class="article">
+<style>
+h1, h2, p, h3, h4, ul, ol, li {
+  margin: 15px;
+}
+</style>
+<h1>Time Duration Calculator: Correct calculation of time</h1>
+<p>In today&apos;s fast growing digital era, it is very important to keep correct account of every second. Do you ever know how much time it took to do a task or how much time was there between two events? To give the correct answer to this, you need a Time Duration Calculator, which keeps correct account of your time. Calculating time duration is never difficult now, because this tool helps you at every step.</p>
+<br>
+<img src="time-duration-calculator.webp" alt="Time Duration Calculator, calculating time duration, average calculator for time, how much time has passed calculator, time difference calculator excel, time duration calculator hours, running time calculation, how to calculator time"  title="time-duration-calculator" style="margin: 0 auto; display: block; ">
+<br>
+<h2>What is Time Duration Calculator?</h2>
+<p><br></p>
+<p>A Time Duration Calculator is a tool that calculates the accurate difference between two dates or periods of time. It reduces the errors that occur in manual calculations to a great extent. This calculator allows you to:</p>
+<ol>
+    <li>Calculate accurate time duration up to seconds.</li>
+    <li>Complex calculations that include hours, minutes, and seconds</li>
+    <li>Calculate long time intervals using date-based calculations.</li>
+</ol>
+<p>If you are looking for an easy and reliable solution for calculating time duration, this tool will make your job easier.</p>
+<p><br></p>
+<h2>Uses of Time Duration Calculator</h2>
+<h3>1. Project Management</h3>
+<p>You can track the duration of your projects. Such as how much time it took from starting a task to completing it.</p>
+<p><br></p>
+<h3>2. Productivity Tracking</h3>
+<p>If you want to know how much time has passed, how does a calculator work, then this tool will tell you how much time has passed between any event.</p>
+<p><br></p>
+<h3>3. Average Calculator for Time</h3>
+<p>To calculate the average time between any activity, this tool works as an average calculator for time.</p>
+<p><br></p>
+<h3>4. Running Time Calculation</h3>
+<p>This tool is perfect for fitness lovers and athletes for **running time calculation**, in which they can calculate the time of their workouts.</p>
+<p><br></p>
+<h3>5. Time Between Two Times Calculator</h3>
+<p>The duration between two times calculator can be used for meetings and appointments.</p>
+<p><br></p>
+<h3>Calculation of Time Duration in Excel</h3>
+<p>When it comes to time difference calculator Excel, you can use the `DATEDIF` and `TEXT` functions. But this can be a little technical. It is easier to use an online calculator to calculate time duration than to manually use Excel.</p>
+<p><br></p>
+<p>Example of Time Duration Calculator with Breaks</p>
+<ol>
+    <li>Start Time: 8:30 AM</li>
+    <li>End Time: 5:30 PM</li>
+    <li>Break Time: 1 Hour</li>
+</ol>
+<p>If breaks are included, use the time duration calculator with breaks which subtracts the breaks and gives you an accurate net time.</p>
+<p><br></p>
+<h3>Manual vs Automatic Time Calculation</h3>
+<p>Where there is a possibility of errors in manual calculation, automatic tools give correct and quick results.</p>
+<p><br></p>
+<h3>Time Management Tips</h3>
+<ul>
+    <li><strong>1. Prioritize time:</strong> Focus on important tasks first.</li>
+    <li><strong>2. Use breaks correctly: </strong>Maintain a balance between work and rest.</li>
+    <li><strong>3. Use automated tools:</strong> Use smart tools for time tracking and scheduling.</li>
+</ul>
+<p><br></p>
+<h3>Tools for Time Duration Calculation</h3>
+<p>Today, many **hours calculator between two times and date and time duration calculator** are available online which give instant and accurate results.</p>
+<p><br></p>
+<h3>Popular Tools:</h3>
+<ul>
+    <li><strong>How Much Time Calculator:</strong> For quick and simple calculations.</li>
+    <li><strong>Hours Calculator Between Two Times: </strong>To calculate work hours efficiently.</li>
+</ul>
+<p><br></p>
+<h2>Conclusion</h2>
+<p>Correct calculation of time is very important for productivity and efficiency. By using Time duration calculator you can make your work easy and accurate. Whether you need to calculate work hours or do event planning, using a time duration calculator with breaks is a must-have tool for you. Increase your success by utilizing your time and achieve your goals.</p>
+<blockquote>
+    <p style="text-align: left;"><strong>Read More</strong></p>
+    <p style="text-align: left;"><a href="Fake-Tweet.html">Fake Tweets Generator</a></p>
+    <p style="text-align: left;"><a href="lenny-face.html">Lenny Face Generator</a></p>
+    <p style="text-align: left;"><a href="counter-sentences.html">Counter Sentences</a></p>
+    <p style="text-align: left;"><a href="ml-into-ounces.html">Milliliters to Ounces Converter</a></p>
+</blockquote>
+</div>
+    <!--end article-->
+   <script src="script.js"></script>
+</body>
+    
+<!-- Footer Section -->
+<footer style="
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 1rem;
+">
+    <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    ">
+        
+        <!-- Quick Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Quick Links</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="about-me.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Me</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="portfolio.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Portfolio</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="our-services.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Our Services</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Expert Team</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="#" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Latest News</a>
+                </li>
+            </ul>
+        </div>
+<!-- Legal -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Legal</h3>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            ">
+                <li style="margin: 0.5rem 0;">
+                    <a href="index.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Home</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="about.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">About Us</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="privacy-policy" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Privacy & Policy</a>
+                </li>
+                <li style="margin: 0.5rem 0;">
+                    <a href="contact.html" style="
+                        color: #fff;
+                        text-decoration: none;
+                        transition: color 0.3s ease;
+                    ">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <h3 style="
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                color: #ffeb3b;
+            ">Follow Us</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" class="fa fa-facebook" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-twitter" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-linkedin" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-instagram" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-pinterest" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+                <a href="#" class="fa fa-reddit" style="font-size: 24px; color: #fff; transition: color 0.3s ease;"></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; font-size: 0.9rem;">
+            <p>&copy; 2024 MyWebsite. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Inline Responsive Styling for Mobile View -->
+    <style>
+        @media (min-width: 768px) {
+            footer div {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            footer div div {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Additional styling for social icons */
+        .fa {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* background color for icons */
+            text-align: center;
+        }
+
+        .fa:hover {
+            color: #ffeb3b; /* Hover color for icons */
+        }
+    </style>
+</footer>
+</html>
