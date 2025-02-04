@@ -199,27 +199,27 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
 <br>
      <p><em><span style="color: rgb(184, 49, 47);">Note: Decode invisible text only if it was generated using this tool. </span></em></p>
     <script>
-        const ZERO_WIDTH_SPACE = "\u200B";  // Zero Width Space
-        const ZERO_WIDTH_NON_JOINER = "\u200C";  // Zero Width Non-Joiner
-        const ZERO_WIDTH_JOINER = "\u200D";   // Zero Width Joiner
+        // Invisible characters for encoding
+        const INVISIBLE_CHARS = ["\u2060", "\u200B", "\u200C", "\u200D"]; // Special Unicode spaces
+        const DELIMITER = "\u2063"; // Invisible separator
 
-        // Function to encode text into invisible characters
+        // Convert text to hidden text
         function encodeText() {
             let input = document.getElementById("inputText").value;
             if (!input) {
                 alert("Please enter text to hide!");
                 return;
             }
-            let encoded = "";
-            for (let i = 0; i < input.length; i++) {
-                encoded += input.charCodeAt(i).toString(2)
-                    .replace(/0/g, ZERO_WIDTH_SPACE)
-                    .replace(/1/g, ZERO_WIDTH_NON_JOINER) + ZERO_WIDTH_JOINER;
-            }
+            let encoded = input.split("").map(char => {
+                let binary = char.charCodeAt(0).toString(2);
+                let hiddenText = binary.split("").map(bit => INVISIBLE_CHARS[parseInt(bit)]).join("");
+                return hiddenText + DELIMITER;
+            }).join("");
+
             document.getElementById("outputText").value = encoded;
         }
 
-        // Function to copy invisible text
+        // Copy invisible text
         function copyText() {
             let outputText = document.getElementById("outputText");
             outputText.select();
@@ -227,18 +227,19 @@ document.querySelector('.hamburger-menu').addEventListener('click', () => {
             alert("✅ Invisible text copied!");
         }
 
-        // Function to decode invisible text
+        // Decode hidden text back to normal
         function decodeText() {
             let hiddenText = document.getElementById("decodeText").value;
             if (!hiddenText) {
                 alert("Please paste hidden text to decode!");
                 return;
             }
-            let decoded = hiddenText.split(ZERO_WIDTH_JOINER).map(bin => {
-                return String.fromCharCode(parseInt(
-                    bin.replace(new RegExp(ZERO_WIDTH_SPACE, "g"), "0")
-                       .replace(new RegExp(ZERO_WIDTH_NON_JOINER, "g"), "1"), 2));
-            }).join('');
+
+            let decoded = hiddenText.split(DELIMITER).map(encodedChar => {
+                let binary = Array.from(encodedChar).map(char => INVISIBLE_CHARS.indexOf(char)).join("");
+                return binary ? String.fromCharCode(parseInt(binary, 2)) : "";
+            }).join("");
+
             document.getElementById("decodedOutput").value = decoded;
         }
     </script>
